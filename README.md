@@ -1,6 +1,5 @@
-# eq-openapi-sdk
+# PMClient SDK in python
 
-eq-openapi-sdk in python
 
 #Description
 PMClient is a bunch of REST-APIs that can be used to build a fully functional investment and trading platform.
