@@ -5,7 +5,7 @@ from .constants import Constants
 
 class PMClient(ApiService, Constants):
 
-    def __init__(self, access_token=None, api_secret=None, api_key=None):
+    def __init__(self, access_token=None, api_secret=None, api_key=None, state_key=None):
         if api_key is not None:
             self._api_key = api_key
         else:
@@ -15,6 +15,7 @@ class PMClient(ApiService, Constants):
         else:
             raise TypeError("Api Secret cannot be null or empty")
         self.access_token = access_token
+        self.state_key = state_key
         ApiService.__init__(self)
         Constants.__init__(self)
 
@@ -25,7 +26,7 @@ class PMClient(ApiService, Constants):
 
     def login(self):
         config = self._service_config
-        return "%s%s" % (config['routes']['login'], self._api_key)
+        return "%s%s%s%s" % (config['routes']['login'], self._api_key, config['login_param'], self.state_key)
 
     def generate_session(self, request_token=None):
         if request_token is not None:
