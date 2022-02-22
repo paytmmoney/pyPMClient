@@ -194,10 +194,9 @@ pm.holdings_value()
 
 ### User Holdings Data
 * Get holdings data of User.
-* isin will be provided in order details.
 
 ```python
-pm.user_holdings_data(isin)
+pm.user_holdings_data()
 ```
 
 ### Security Master
