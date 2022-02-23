@@ -31,6 +31,7 @@ pm = PMClient(api_secret="your_api_secret", api_key="your_api_key", access_token
 
 User needs to call the login method and get the login URL.
 ```python
+# state_key : Variable key which merchant/fintech company expects Paytm Money to return with Request Token. This can be string.
 pm.login(state_key)
 ```
 
