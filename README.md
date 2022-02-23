@@ -24,14 +24,14 @@ from pyPMClient import PMClient
 Create PMClient object to use SDK for calling API methods.
 ```python
 # Initialize PMClient using apiKey and apiSecret.
-pm = PMClient(api_secret="your_api_secret", api_key="your_api_key", state_key="your_state_key")
+pm = PMClient(api_secret="your_api_secret", api_key="your_api_key")
 # Initialize PMClient using apiKey, apiSecret & access_token if user has already generated.
-pm = PMClient(api_secret="your_api_secret", api_key="your_api_key", state_key="your_state_key", access_token="your_access_token")
+pm = PMClient(api_secret="your_api_secret", api_key="your_api_key", access_token="your_access_token")
 ```
 
 User needs to call the login method and get the login URL.
 ```python
-pm.login()
+pm.login(state_key)
 ```
 
 
