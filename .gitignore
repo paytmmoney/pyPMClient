@@ -1,2 +1,4 @@
 .idea/
 pmClient/__pycache__/
+.coverage
+tests/__pycache__/
