@@ -5,7 +5,7 @@ from .constants import Constants
 
 class PMClient(ApiService, Constants):
 
-    def __init__(self, access_token=None, api_secret=None, api_key=None):
+    def __init__(self, api_secret, api_key, access_token=None):
         if api_key is not None:
             self._api_key = api_key
         else:
@@ -23,9 +23,12 @@ class PMClient(ApiService, Constants):
         self.access_token = access_token
         return self.access_token
 
-    def login(self):
+    def login(self, state_key):
         config = self._service_config
-        return "%s%s" % (config['routes']['login'], self._api_key)
+        if state_key is not None:
+            return "%s%s%s%s" % (config['routes']['login'], self._api_key, config['login_param'], state_key)
+        else:
+            raise TypeError("State Key cannot be null or empty")
 
     def generate_session(self, request_token=None):
         if request_token is not None:
@@ -78,7 +81,7 @@ class PMClient(ApiService, Constants):
 
         helper = 'place_regular'
 
-        #For placing stop loss order or stop loss market order
+        # For placing stop loss order or stop loss market order
         if order_type is OrderType.StopLossLimit.value or OrderType.StopLossMarket.value:
             order['trigger_price'] = trigger_price
 
@@ -112,8 +115,8 @@ class PMClient(ApiService, Constants):
         return self.api_call_helper(helper, Requests.POST, None, order)
 
     def modify_order(self, source, txn_type, exchange, segment, product, security_id, quantity, validity, order_type,
-                     price, mkt_type, order_no, serial_no, group_id, trigger_price=None, off_mkt_flag=False, leg_no=None,
-                     algo_order_no=None, edis_txn_id=None, edis_auth_mode=None):
+                     price, mkt_type, order_no, serial_no, group_id, trigger_price=None, off_mkt_flag=False,
+                     leg_no=None, algo_order_no=None, edis_txn_id=None, edis_auth_mode=None):
         self.validate_access_token()
         order = {
             'txn_type': txn_type,
@@ -167,8 +170,8 @@ class PMClient(ApiService, Constants):
         return self.api_call_helper(helper, Requests.POST, None, order)
 
     def cancel_order(self, source, txn_type, exchange, segment, product, security_id, quantity, validity, order_type,
-                     price, mkt_type, order_no, serial_no, group_id, trigger_price=None, off_mkt_flag=False, leg_no=None,
-                     algo_order_no=None):
+                     price, mkt_type, order_no, serial_no, group_id, trigger_price=None, off_mkt_flag=False,
+                     leg_no=None, algo_order_no=None):
         self.validate_access_token()
         order = {
             'txn_type': txn_type,
@@ -311,7 +314,6 @@ class PMClient(ApiService, Constants):
 
     def security_master(self):
         """Details in a CSV file of all securities"""
-        self.validate_access_token()
         return self.api_call_helper('security_master', Requests.GET, None, None)
 
     def generate_tpin(self):
@@ -325,8 +327,8 @@ class PMClient(ApiService, Constants):
         if isin_list is None:
             isin_list = []
         request_body = {
-            'trade_type' : trade_type,
-            'isin_list' : isin_list
+            'trade_type': trade_type,
+            'isin_list': isin_list
         }
         return self.api_call_helper('validate_tpin', Requests.POST, None, request_body)
 
