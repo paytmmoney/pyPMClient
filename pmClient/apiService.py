@@ -36,12 +36,13 @@ class ApiService(Constants):
     def _api_call(self, url, http_method, data):
         """Checks for the API Method and that call is done and returned"""
         config = self._service_config
-        if url == f"{config['host']}{config['routes']['security_master']}":
-            headers = {"Content-Type": "application/vnd.ms-excel"}
-        else:
-            headers = {"Content-Type": "application/json"}
+        headers = {}
         if self.access_token is not None:
             headers['x-jwt-token'] = self.access_token
+        if url == f"{config['host']}{config['routes']['security_master']}":
+            headers["Content-Type"] = "application/vnd.ms-excel"
+        else:
+            headers["Content-Type"] = "application/json"
         r = None
         if http_method is Requests.POST:
             r = requests.post(url, data=json.dumps(data), headers=headers)
