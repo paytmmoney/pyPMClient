@@ -9,7 +9,7 @@ PMClient is a set of REST-like APIs that expose many capabilities required to bu
 trading platform. Execute orders in real time, manage user portfolio, and more, with the simple HTTP API collection.
 
 
-[PaytmMoney Technology Pvt Ltd](https://www.paytmmoney.com/) (c) 2021. Licensed under the MIT License.
+[PaytmMoney Technology Pvt Ltd](https://www.paytmmoney.com/) (c) 2022. Licensed under the MIT License.
 
 
 ## Documentation
