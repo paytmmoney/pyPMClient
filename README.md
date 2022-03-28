@@ -2,50 +2,34 @@
 
 The official Python client for communicating with [PaytmMoney Equity API](https://www.paytmmoney.com/stocks/).
 
-<<<<<<< HEAD
-# Description
-PMClient is a bunch of REST-APIs that can be used to build a fully functional investment and trading platform.
-Real time execution of orders with simple HTTP API Collection.
 
-# Install the Package
-=======
+# Description
+
 PMClient is a set of REST-like APIs that expose many capabilities required to build a complete investment and
 trading platform. Execute orders in real time, manage user portfolio, and more, with the simple HTTP API collection.
 
-[PaytmMoney Technology Pvt Ltd](https://www.paytmmoney.com/) (c) 2021. Licensed under the MIT License.
->>>>>>> origin/develop
+
+[PaytmMoney Technology Pvt Ltd](https://www.paytmmoney.com/) (c) 2022. Licensed under the MIT License.
+
 
 ## Documentation
 
 ## Usage
 
+### Install Package
 ```python
 pip install pyPMClient
 ```
 
-<<<<<<< HEAD
-# API Usage
-=======
-## API Usage
->>>>>>> origin/develop
+
+### API Usage
 
 ```python
 from pyPMClient import PMClient
 ```
 
-<<<<<<< HEAD
+
 ##### User needs to create an object of sdk and pass apiKey & apiSecretKey
-pm = PMClient(api_key="your_api_key", api_secret="your_api_secret")
-
-##### User can call the login method and get the login URL.
-pm.login()
-
-##### User manually executes a login url in the browser and fetches requestToken after validating username, password, OTP and passcode. 
-##### After a successful login user will be provided the request_token in the URL
-
-##### Once the request_token is obtained you can generate access_token by calling generate_session
-=======
-Create PMClient object to use SDK for calling API methods.
 ```python
 # Initialize PMClient using apiKey and apiSecret.
 pm = PMClient(api_secret="your_api_secret", api_key="your_api_key")
@@ -53,79 +37,40 @@ pm = PMClient(api_secret="your_api_secret", api_key="your_api_key")
 pm = PMClient(api_secret="your_api_secret", api_key="your_api_key", access_token="your_access_token")
 ```
 
-User needs to call the login method and get the login URL.
+##### User can call the login method and get the login URL.
 ```python
 # state_key : Variable key which merchant/fintech company expects Paytm Money to return with Request Token. This can be string.
 pm.login(state_key)
 ```
 
+##### User manually executes a login url in the browser and fetches requestToken after validating username, password, OTP and passcode. 
+##### After a successful login user will be provided the request_token in the URL
 
+##### Once the request_token is obtained you can generate access_token by calling generate_session
 1) User manually executes a login url in the browser and fetches requestToken after validating username, password, OTP and passcode. 
 2) After a successful login user will be provided the request_token in the URL.
 3) Once the request_token is obtained you can generate access_token by calling generate_session.
 ```python
->>>>>>> origin/develop
 pm.generate_session(request_token="your_request_token")
 ```
 
-<<<<<<< HEAD
 ##### After generating the access_token it will get set and any API can be called with same access_token.
-
-# Place Order
-##### Here you can place regular, cover and bracket order
-##### For cover order in argument user has to add trigger_price
-##### For bracket order in argument user has to add stoploss_value & profit_value
-order = pm.place_order(txn_type, exchange, segment, product, security_id, quantity, validity, order_type, price, source, 
-                    off_mkt_flag)
-
-# Modify Order
-#### Here you can modify orders
-#### For cover order in argument user has to add leg_no
-##### For bracket order in argument user has to add leg_no & algo_order_no
-order = pm.modify_order(source, txn_type, exchange, segment, product, security_id, quantity, validity, order_type,
-                     price, mkt_type, order_no, serial_no, group_id)
-
-# Cancel Order
-#### Here you can Cancel Orders
-#### For cover order in argument user has to add leg_no
-##### For bracket order in argument user has to add leg_no & algo_order_no
-order = pm.cancel_order(source, txn_type, exchange, segment, product, security_id, quantity, validity, order_type,
-                     price, mkt_type, order_no, serial_no, group_id)
-=======
-After generating the access_token/session any API can be called with same access_token/session.
-
-```python
-# Set access Token if you have already. In this case, Don't need to call generateSession method.
-pm.set_access_token(access_token)
-```
 
 ### Place Order
 * Here you can place regular, cover and bracket order.
 * For cover order in argument user has to add trigger_price.
 * For bracket order in argument user has to add stoploss_value & profit_value.
 * To place sell CNC order user has to add edis_txn_id and edis_auth_mode.
-
 ```python
 # Regular Order
 order = pm.place_order(txn_type, exchange, segment, product, security_id, quantity, validity, order_type, price, source, off_mkt_flag)
 ```
->>>>>>> origin/develop
 
 ```python
 # Cover Order
 order = pm.place_order(txn_type, exchange, segment, product, security_id, quantity, validity, order_type, price, source, trigger_price)
 ```
 
-<<<<<<< HEAD
-# Convert Order
-#### For converting through eDIS user needs to provide edis_txn_id & edis_auth_mode
-#### The above details can be generated by TPIN APIs
-order = pm.convert_regular(source, txn_type, exchange, mkt_type, segment, product_from, product_to, quantity,
-                        security_id)
-
-# Order Details
-#### Fetch details of all the order
-=======
 ```python
 # Bracket Order
 order = pm.place_order(txn_type, exchange, segment, product, security_id, quantity, validity, order_type, price, source, stoploss_value, profit_value)
@@ -140,8 +85,7 @@ order = pm.place_order(txn_type, exchange, segment, product, security_id, quanti
 * Here you can modify orders.
 * For cover order in argument user has to add leg_no.
 * For bracket order in argument user has to add leg_no & algo_order_no.
-* To place sell CNC order user has to add edis_txn_id and edis_auth_mode.
-
+* To modify sell CNC order user has to add edis_txn_id and edis_auth_mode.
 ```python
 # Regular Order
 order = pm.modify_order(source, txn_type, exchange, segment, product, security_id, quantity, validity, order_type, price, mkt_type, order_no, serial_no, group_id)
@@ -166,7 +110,6 @@ order = pm.modify_order(source, txn_type, exchange, segment, product, security_i
 * Here you can Cancel Orders.
 * For cover order in argument user has to add leg_no.
 * For bracket order in argument user has to add leg_no & algo_order_no.
-
 ```python
 # Regular Order
 order = pm.cancel_order(source, txn_type, exchange, segment, product, security_id, quantity, validity, order_type, price, mkt_type, order_no, serial_no, group_id)
@@ -185,7 +128,6 @@ order = pm.cancel_order(source, txn_type, exchange, segment, product, security_i
 ### Convert Order
 * For converting through eDIS user needs to provide edis_txn_id & edis_auth_mode.
 * The above details can be generated by TPIN APIs.
-
 ```python
 # Regular Order
 order = pm.convert_regular(source, txn_type, exchange, mkt_type, segment, product_from, product_to, quantity, security_id)
@@ -193,176 +135,91 @@ order = pm.convert_regular(source, txn_type, exchange, mkt_type, segment, produc
 
 ```python
 # Sell CNC Order
-
 order = pm.convert_regular(source, txn_type, exchange, mkt_type, segment, product_from, product_to, quantity, security_id, edis_auth_mode, edis_txn_id)
 ```
 
+
 ### Order Details
 * Fetch details of all the order.
-
 ```python
->>>>>>> origin/develop
 pm.order_book()
 ```
 
-<<<<<<< HEAD
-# Trade Details
-##### Fetch Trade Details
-=======
 ### Trade Details
 * Fetch Trade Details.
-
 ```python
->>>>>>> origin/develop
 pm.trade_details(order_no, leg_no, segment)
 ```
 
-<<<<<<< HEAD
-# Position
-#### Get all the positions
-=======
 ### Position
 * Get all the positions.
-
 ```python
->>>>>>> origin/develop
 pm.position()
 ```
 
-<<<<<<< HEAD
-# Position Details
-#### Get position detail of specific stock
-=======
 ### Position Details
 * Get position detail of specific stock.
-
 ```python
->>>>>>> origin/develop
+
 pm.position_details(security_id, product, exchange)
 ```
 
-<<<<<<< HEAD
-# Get Funds History
-#### Get the funds history
-pm.funds_summary(config=True)
-
-# Scrip Margin
-#### Calculate Scrip Margin
-pm.scrip_margin(
-                source="N"
-                margin_list=[
-                              {
-                                 "exchange":"NSE",
-                                 "segment":"D",
-                                 "security_id":"46840",
-                                 "txn_type":"B",
-                                 "quantity":"250",
-                                 "strike_price":"0",
-                                 "trigger_price":"0",
-                                 "instrument":"FUTSTK"
-                              },
-                              {
-                                 "exchange":"",
-                                 "segment":"",
-                                 "security_id":"",
-                                 "txn_type":"",
-                                 "quantity":"",
-                                 "strike_price":"",
-                                 "trigger_price":"",
-                                 "instrument":""
-                              }...
-                           ]
-                )
-
-# Order Margin
-#### Calculate Order Margin
-=======
 ### Get Funds History
 * Get the funds history.
-
 ```python
 pm.funds_summary(config)
 ```
 
 ### Scrip Margin
 * Calculate Scrip Margin.
-
 ```python
-pm.scrip_margin(source, margin_list=[])
+pm.scrip_margin(source, margin_list=[
+                                 "exchange":"exchange",
+                                 "segment":"segment",
+                                 "security_id":"security_id",
+                                 "txn_type":"txn_type",
+                                 "quantity":"quantity",
+                                 "strike_price":"strike_price",
+                                 "trigger_price":"trigger_price",
+                                 "instrument":"instrument"
+                                 ])
 ```
 
 ### Order Margin
 * Calculate Order Margin.
-
 ```python
->>>>>>> origin/develop
 pm.order_margin(source, exchange, segment, security_id, txn_type, quantity, price, product, trigger_price)
 ```
 
-<<<<<<< HEAD
-# Holdings value
-#### Get value of the holdings
-=======
 ### Holdings value
 * Get value of the holdings.
-
 ```python
->>>>>>> origin/develop
 pm.holdings_value()
 ```
 
-<<<<<<< HEAD
-# User Holdings Data
-#### Get holdings data of User
-#### isin will be provided in order details
-pm.user_holdings_data(isin)
-
-# Security Master
-#### Data will be provided in CSV format
-=======
 ### User Holdings Data
 * Get holdings data of User.
-
 ```python
 pm.user_holdings_data()
 ```
 
 ### Security Master
 * Data will be provided in CSV format.
-
 ```python
->>>>>>> origin/develop
 pm.security_master()
 ```
 
-<<<<<<< HEAD
-# User Details
-#### Fetch user details
-=======
 ### User Details
 * Fetch user details.
-
 ```python
->>>>>>> origin/develop
 pm.get_user_details()
 ```
 
-<<<<<<< HEAD
-# Generate Tpin
-=======
 ### Generate Tpin
 ```python
->>>>>>> origin/develop
 pm.generate_tpin()
 ```
 
-<<<<<<< HEAD
-# Validate Tpin
-pm.validate_tpin(exchange, segment, security_id, quantity)
-
-# Status 
-#### user can get the edis_request_id from the response of validate TPIN API
-=======
 ### Validate Tpin
 ```python
 pm.validate_tpin(trade_type, isin_list=[])
@@ -370,9 +227,7 @@ pm.validate_tpin(trade_type, isin_list=[])
 
 ### Status 
 * user can get the edis_request_id from the response of validate TPIN API.
-
 ```python
->>>>>>> origin/develop
 pm.status(edis_request_id)
 ```
 

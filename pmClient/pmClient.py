@@ -1,6 +1,6 @@
-from .enums import OrderType, Requests, ProductType
-from .apiService import ApiService
-from .constants import Constants
+from enums import OrderType, Requests, ProductType
+from apiService import ApiService
+from constants import Constants
 
 
 class PMClient(ApiService, Constants):
