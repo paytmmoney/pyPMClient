@@ -17,11 +17,11 @@ try:
         trade_type="PRE-TRADE",
         isin_list=[
             {
-                "isin": "INE405Y01013",
+                "isin": "isin",
                 "qty": 2
             },
             {
-                "isin": "INE421A01028",
+                "isin": "isin",
                 "qty": 3
             }
         ]
