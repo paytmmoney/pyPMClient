@@ -27,7 +27,7 @@ def test_logout(pm_api):
 
 
 def test_place_order_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2Mzg5NTAzOTAwMzgiLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJhdXRob3Jpc2F0aW9uIjoiW1wiUDFcIixcIlAyXCIsXCJQM1wiLFwiUDRcIl0iLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.VMJRi_Xh1xV5rz5mW0s1-RPELCzdpRVvR5AA4blIm54"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
         pm_api.place_order(
             source="W",
@@ -176,7 +176,7 @@ def test_place_order_connection_bracket_type2(pm_api):
 
 
 def test_modify_order_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2Mzg5NTAzOTAwMzgiLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJhdXRob3Jpc2F0aW9uIjoiW1wiUDFcIixcIlAyXCIsXCJQM1wiLFwiUDRcIl0iLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.VMJRi_Xh1xV5rz5mW0s1-RPELCzdpRVvR5AA4blIm54"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
         pm_api.modify_order(
             source="N",
@@ -191,7 +191,7 @@ def test_modify_order_attribute(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=1,
             group_id=8
         )
@@ -213,7 +213,7 @@ def test_modify_order_connection(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=1,
             group_id=8
         )
@@ -235,7 +235,7 @@ def test_modify_order_connection_edis(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=1,
             group_id=8,
             edis_txn_id=1012,
@@ -259,7 +259,7 @@ def test_modify_order_connection_cover(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=1,
             group_id=8,
             leg_no="2"
@@ -282,7 +282,7 @@ def test_modify_order_connection_cover_type(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=1,
             group_id=8,
             leg_no=None
@@ -305,7 +305,7 @@ def test_modify_order_connection_bracket(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=1,
             group_id=8,
             leg_no="2",
@@ -329,7 +329,7 @@ def test_modify_order_connection_bracket_type1(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=1,
             group_id=8,
             leg_no=None,
@@ -353,7 +353,7 @@ def test_modify_order_connection_bracket_type2(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=1,
             group_id=8,
             leg_no="2",
@@ -362,7 +362,7 @@ def test_modify_order_connection_bracket_type2(pm_api):
 
 
 def test_cancel_order_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2Mzg5NTAzOTAwMzgiLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJhdXRob3Jpc2F0aW9uIjoiW1wiUDFcIixcIlAyXCIsXCJQM1wiLFwiUDRcIl0iLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.VMJRi_Xh1xV5rz5mW0s1-RPELCzdpRVvR5AA4blIm54"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
         pm_api.cancel_order(
             source="N",
@@ -377,7 +377,7 @@ def test_cancel_order_attribute(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=2,
             group_id=8
         )
@@ -399,7 +399,7 @@ def test_cancel_order_connection(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=2,
             group_id=8
         )
@@ -421,7 +421,7 @@ def test_cancel_order_connection_cover(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=2,
             group_id=8,
             leg_no="2"
@@ -444,7 +444,7 @@ def test_cancel_order_connection_cover_type(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=2,
             group_id=8,
             leg_no=None
@@ -467,7 +467,7 @@ def test_cancel_order_connection_bracket(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=2,
             group_id=8,
             leg_no="2",
@@ -491,7 +491,7 @@ def test_cancel_order_connection_bracket1(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=2,
             group_id=8,
             leg_no="2",
@@ -515,7 +515,7 @@ def test_cancel_order_connection_bracket2(pm_api):
             price=620.0,
             off_mkt_flag=False,
             mkt_type="NL",
-            order_no="812112062073",
+            order_no="order_no",
             serial_no=2,
             group_id=8,
             leg_no=None,
@@ -548,7 +548,7 @@ def test_order_book_connection(pm_api):
 def test_trade_details_connection(pm_api):
     pm_api.access_token = "invalid_token"
     with pytest.raises(ConnectionError):
-        pm_api.trade_details(order_no="152108177216", leg_no="1", segment="E")
+        pm_api.trade_details(order_no="order_no", leg_no="1", segment="E")
 
 
 def test_position_connection(pm_api):
@@ -565,7 +565,7 @@ def test_position_details_connection(pm_api):
 
 def test_funds_summary_attribute(pm_api):
     # If no funds could be fetched, this exception will be raised.
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2MzkwMzE4ODIzMTciLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.GmPhLzxjbG6MmiKJcBhbLWz2Qx5yBavQ2fkI9UNTuNc"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
         pm_api.funds_summary(config=True)
 
@@ -589,7 +589,7 @@ def test_user_holdings_data_connection(pm_api):
 
 
 def test_scrips_margin_connection(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2MzkwMzE4ODIzMTciLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.GmPhLzxjbG6MmiKJcBhbLWz2Qx5yBavQ2fkI9UNTuNc"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
         pm_api.scrips_margin(
             source="W",
@@ -690,7 +690,7 @@ def test_security_master_connection(pm_api):
 
 def test_generate_tpin_attribute(pm_api):
     # If user details could not be fetched, this exception will be thrown.
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2MzkwMzE4ODIzMTciLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.GmPhLzxjbG6MmiKJcBhbLWz2Qx5yBavQ2fkI9UNTuNc"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
         pm_api.generate_tpin()
 
@@ -702,7 +702,7 @@ def test_generate_tpin_connection(pm_api):
 
 
 def test_validate_tpin_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2MzkwMzE4ODIzMTciLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.GmPhLzxjbG6MmiKJcBhbLWz2Qx5yBavQ2fkI9UNTuNc"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
         pm_api.validate_tpin(
             trade_type="trade_type",
@@ -721,20 +721,20 @@ def test_validate_tpin_connection(pm_api):
 
 def test_status_attribute(pm_api):
     # Invalid edis_request_id or null may cause this exception.
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2MzkwMzE4ODIzMTciLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.GmPhLzxjbG6MmiKJcBhbLWz2Qx5yBavQ2fkI9UNTuNc"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
-        pm_api.status(edis_request_id=10131)
+        pm_api.status(edis_request_id="req_id")
 
 
 def test_status_connection(pm_api):
     pm_api.access_token = "invalid_token"
     with pytest.raises(ConnectionError):
-        pm_api.status(edis_request_id=10131)
+        pm_api.status(edis_request_id="req_id")
 
 
 def test_get_user_details_attribute(pm_api):
     # If KYC is not done user details cannot be fetched and following exception will be thrown.
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2MzkwMzE4ODIzMTciLCJzc29Ub2tlbiI6ImY4ZDk3ZGMzLTYwMTctNDFmNC1hYmRkLWVkNmQzODRhMDAwMCIsInVzZXJJZCI6IjExNTA0NDQyNzAiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.GmPhLzxjbG6MmiKJcBhbLWz2Qx5yBavQ2fkI9UNTuNc"
+    pm_api.access_token = "valid_token"
     with pytest.raises(AttributeError):
         pm_api.get_user_details()
 
