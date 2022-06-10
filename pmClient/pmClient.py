@@ -312,9 +312,14 @@ class PMClient(ApiService, Constants):
         self.validate_access_token()
         return self.api_call_helper('order_margin', Requests.GET, params, None)
 
-    def security_master(self):
-        """Details in a CSV file of all securities"""
-        return self.api_call_helper('security_master', Requests.GET, None, None)
+    def security_master(self, scrip_type=None, exchange=None):
+        """
+        Details in a CSV file of all securities
+        scrip_type: scrips the client wants to get data for it can be a list
+        exchange: exchange NSE/BSE
+        """
+        params = {'scrip_type': scrip_type, 'exchange': exchange}
+        return self.api_call_helper('security_master', Requests.GET, params, None)
 
     def generate_tpin(self):
         """To generate TPIN to place sell CNC order"""
@@ -337,3 +342,22 @@ class PMClient(ApiService, Constants):
         self.validate_access_token()
         params = {'edis_request_id': edis_request_id}
         return self.api_call_helper('status', Requests.GET, params, None)
+
+    def price_chart_sym(self, cont, exchange, expiry, from_date, inst_type, interval, symbol, to_date, month_id=None,
+                        series=None, strike=None):
+        """Get the historical data of the chart"""
+        self.validate_access_token()
+        request_body = {
+            'cont': cont,
+            'exchange': exchange,
+            'expiry': expiry,
+            'fromDate': from_date,
+            'instType': inst_type,
+            'interval': interval,
+            'monthId': month_id,
+            'series': series,
+            'strike': strike,
+            'symbol': symbol,
+            'toDate': to_date
+        }
+        return self.api_call_helper('price_chart_sym', Requests.POST, None, request_body)

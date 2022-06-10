@@ -35,7 +35,7 @@ class Constants:
                 'funds_summary': '/accounts/v1/funds/summary?config={config}',
                 'holdings_value': '/holdings/v1/get-holdings-value',
                 'user_holdings_data': '/holdings/v1/get-user-holdings-data',
-                'security_master': '/data/v1/security-master',
+                'security_master': '/data/v1/security-master?scrip_type={scrip_type}&exchange={exchange}',
 
                 # margin endpoints
                 'scrips_margin': '/margin/v1/scrips/calculator',
@@ -46,6 +46,9 @@ class Constants:
                 # edis endpoints
                 'generate_tpin': '/edis/v1/generate/tpin',
                 'validate_tpin': '/edis/v1/validate/tpin',
-                'status': '/edis/v1/status?edis_request_id={edis_request_id}'
+                'status': '/edis/v1/status?edis_request_id={edis_request_id}',
+                
+                # historical_data endpoints
+                'price_chart_sym': '/data/v1/price-charts/sym'
             }
         }
