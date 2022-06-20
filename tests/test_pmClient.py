@@ -1,4 +1,3 @@
-from typing import Type
 import pytest
 
 
@@ -743,4 +742,117 @@ def test_get_user_details_connection(pm_api):
     pm_api.access_token = "invalid_token"
     with pytest.raises(ConnectionError):
         pm_api.get_user_details()
+
+
+def test_create_gtt_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.create_gtt(
+            segment="E",
+            exchange="NSE",
+            pml_id="1000001488",
+            security_id="14366",
+            product_type="C",
+            set_price=12.80,
+            transaction_type="S",
+            quantity=1,
+            trigger_price=12.7,
+            limit_price=0,
+            order_type="MKT",
+            trigger_type="SINGLE"
+        )
+
+
+def test_create_gtt_attribute(pm_api):
+    pm_api.access_token = "valid_token"
+    with pytest.raises(AttributeError):
+        pm_api.create_gtt(
+            segment="E",
+            exchange=9.0,
+            pml_id="1000001488",
+            security_id="14366",
+            product_type="C",
+            set_price=12.80,
+            transaction_type="S",
+            quantity=1,
+            trigger_price=12.7,
+            limit_price=0,
+            order_type="MKT",
+            trigger_type="SINGLE"
+        )
+
+
+def test_get_gtt_by_status_or_id_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_gtt_by_pml_id_and_status(
+            status="ACTIVE",
+            pml_id="1000001488"
+        )
+
+
+def test_update_gtt_connection(pm_api):
+    pm_api.access_token = "valid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.update_gtt(
+            set_price=12.80,
+            transaction_type="S",
+            quantity=3,
+            trigger_price=12.7,
+            limit_price=0,
+            order_type="MKT",
+            trigger_type="SINGLE"
+        )
+
+
+def test_update_gtt_attribute(pm_api):
+    pm_api.access_token = "valid_token"
+    with pytest.raises(AttributeError):
+        pm_api.update_gtt(
+            set_price=12.80,
+            transaction_type=5,
+            quantity=3,
+            trigger_price=12.7,
+            limit_price=0,
+            order_type="MKT",
+            trigger_type="SINGLE"
+        )
+
+
+def test_get_gtt_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_gtt(
+            id=4563,
+        )
+
+
+def test_delete_gtt_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.delete_gtt(
+            id=4563,
+        )
+
+
+def test_get_gtt__aggregate_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_gtt_aggregate()
+
+
+def test_get_gtt_expiry_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_gtt_expiry_date(
+            pml_id="1000001488",
+        )
+
+
+def test_get_gtt_by_instruction_id_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_gtt_by_instruction_id(
+            id="4563",
+        )
 

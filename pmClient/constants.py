@@ -49,6 +49,15 @@ class Constants:
                 'status': '/edis/v1/status?edis_request_id={edis_request_id}',
                 
                 # historical_data endpoints
-                'price_chart_sym': '/data/v1/price-charts/sym'
+                'price_chart_sym': '/data/v1/price-charts/sym',
+                
+                # gtt
+                'get_gtt_by_pml_id_and_status': '/gtt/v1/gtt?status={status}&pml-id={pml_id}',
+                'gtt': '/gtt/v1/gtt',
+                'gtt_by_id': '/gtt/v1/gtt/{id}',
+                'gtt_aggregate': '/gtt/v1/gtt/aggregate',
+                'expiry_gtt': '/gtt/v1/gtt/expiry-date?pml-id={pml_id}',
+                'gtt_by_instruction_id': '/gtt/v1/gtt/instructions/{id}'
+
             }
         }

@@ -1,6 +1,6 @@
-from enums import OrderType, Requests, ProductType
-from apiService import ApiService
-from constants import Constants
+from .apiService import ApiService
+from .constants import Constants
+from .enums import OrderType, Requests, ProductType
 
 
 class PMClient(ApiService, Constants):
@@ -361,3 +361,97 @@ class PMClient(ApiService, Constants):
             'toDate': to_date
         }
         return self.api_call_helper('price_chart_sym', Requests.POST, None, request_body)
+
+    def get_gtt_by_pml_id_and_status(self, status=None, pml_id=None):
+        """Get all gtt for the account or filter by status and pml_id"""
+        self.validate_access_token()
+        if status is not None or pml_id is not None:
+            params = {
+                'status': status,
+                'pml_id': pml_id
+            }
+            return self.api_call_helper('get_gtt_by_pml_id_and_status', Requests.GET, params, None)
+        else:
+            return self.api_call_helper('gtt', Requests.GET, None, None)
+
+    def create_gtt(self, segment, exchange, pml_id, security_id, product_type, set_price, transaction_type,
+                   order_type, trigger_type, quantity, trigger_price, limit_price, execution_ref_id=None,
+                   notification_ref_id=None, sub_type=None, triggered_at=None, triggered_at_price=None,
+                   triggered_at_type=None):
+        """Create a GTT Order"""
+        self.validate_access_token()
+        transaction_details = []
+
+        transaction_details_obj = {
+            'quantity': quantity,
+            'trigger_price': trigger_price,
+            'limit_price': limit_price,
+            'execution_ref_id': execution_ref_id,
+            'notification_ref_id': notification_ref_id,
+            'sub_type': sub_type,
+            'triggered_at': triggered_at,
+            'triggered_at_price': triggered_at_price,
+            'triggered_at_type': triggered_at_type
+        }
+        transaction_details.append(transaction_details_obj)
+
+        request_body = {
+            'segment': segment,
+            'exchange': exchange,
+            'pml_id': pml_id,
+            'security_id': security_id,
+            'product_type': product_type,
+            'set_price': set_price,
+            'transaction_type': transaction_type,
+            'order_type': order_type,
+            'trigger_type': trigger_type,
+            'transaction_details': transaction_details
+        }
+
+        return self.api_call_helper('gtt', Requests.POST, None, request_body)
+
+    def get_gtt(self, id):
+        """Get GTT order by id"""
+        self.validate_access_token()
+        params = {
+            'id': id
+        }
+        return self.api_call_helper('gtt_by_id', Requests.GET, params, None)
+
+    def update_gtt(self, id):
+        """Update GTT order"""
+        self.validate_access_token()
+        params = {
+            'id': id
+        }
+        request_body = {}
+        return self.api_call_helper('gtt_by_id', Requests.PUT, params, request_body)
+
+    def delete_gtt(self, id):
+        """Delete GTT order"""
+        self.validate_access_token()
+        params = {
+            'id': id
+        }
+        return self.api_call_helper('gtt_by_id', Requests.DELETE, params, None)
+
+    def get_gtt_aggregate(self):
+        """Get GTT orders aggregate"""
+        self.validate_access_token()
+        return self.api_call_helper('gtt_aggregate', Requests.GET, None, None)
+
+    def get_gtt_expiry_date(self, pml_id):
+        """Get GTT order expiry date by pml_id"""
+        self.validate_access_token()
+        params = {
+            'pml_id': pml_id
+        }
+        return self.api_call_helper('expiry_gtt', Requests.GET, params, None)
+
+    def get_gtt_by_instruction_id(self, id):
+        """Get GTT order by Instruction Id"""
+        self.validate_access_token()
+        params = {
+            'id': id
+        }
+        return self.api_call_helper('gtt_by_instruction_id', Requests.GET, params, None)

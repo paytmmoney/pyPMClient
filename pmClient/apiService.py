@@ -1,7 +1,7 @@
 import requests
 import json
-from enums import Requests
-from constants import Constants
+from .enums import Requests
+from .constants import Constants
 
 
 class ApiService(Constants):
