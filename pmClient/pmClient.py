@@ -418,13 +418,29 @@ class PMClient(ApiService, Constants):
         }
         return self.api_call_helper('gtt_by_id', Requests.GET, params, None)
 
-    def update_gtt(self, id):
+    def update_gtt(self, id, quantity, trigger_price, limit_price, set_price, transaction_type, order_type, trigger_type):
         """Update GTT order"""
         self.validate_access_token()
         params = {
             'id': id
         }
-        request_body = {}
+
+        transaction_details = []
+
+        transaction_details_obj = {
+            'quantity': quantity,
+            'trigger_price': trigger_price,
+            'limit_price': limit_price
+        }
+        transaction_details.append(transaction_details_obj)
+
+        request_body = {
+            'set_price': set_price,
+            'transaction_type': transaction_type,
+            'order_type': order_type,
+            'trigger_type': trigger_type,
+            'transaction_details': transaction_details
+        }
         return self.api_call_helper('gtt_by_id', Requests.PUT, params, request_body)
 
     def delete_gtt(self, id):

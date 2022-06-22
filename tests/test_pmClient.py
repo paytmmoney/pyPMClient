@@ -684,7 +684,7 @@ def test_order_margin_connection(pm_api):
 def test_security_master_connection(pm_api):
     pm_api.access_token = "invalid_token"
     with pytest.raises(ConnectionError):
-        pm_api.security_master()
+        pm_api.security_master(scrip_type="etf", exchange="NSE")
 
 
 def test_generate_tpin_attribute(pm_api):
@@ -742,6 +742,36 @@ def test_get_user_details_connection(pm_api):
     pm_api.access_token = "invalid_token"
     with pytest.raises(ConnectionError):
         pm_api.get_user_details()
+
+
+def test_price_chart_sym_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.price_chart_sym(
+            cont="false",
+            exchange="NSE",
+            expiry="2022-04-26",
+            fromDate="2022-02-10",
+            instType="FUTIDX",
+            interval="MINUTE",
+            symbol="MIDCPNIFTY",
+            toDate="2022-02-05"
+        )
+
+
+def test_price_chart_sym_attribute(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(AttributeError):
+        pm_api.price_chart_sym(
+            cont="false",
+            exchange="NSE",
+            expiry="2022-04-26",
+            fromDate="2022-02-10",
+            instType="FUTIDX",
+            interval="MINUTE",
+            symbol="",
+            toDate="2022-02-05"
+        )
 
 
 def test_create_gtt_connection(pm_api):
