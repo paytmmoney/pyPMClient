@@ -385,7 +385,7 @@ class PMClient(ApiService, Constants):
         if status is not None and status!="" and pml_id is not None and pml_id!="":
             params = {
                 'status': status,
-                'pml-id': pml_id
+                'pml_id': pml_id
             }
             return self.api_call_helper('get_gtt_by_pml_id_and_status', Requests.GET, params, None)
         elif (status is not None and status!="") and (pml_id is None or pml_id==""):
@@ -395,7 +395,7 @@ class PMClient(ApiService, Constants):
             return self.api_call_helper('get_gtt_by_status', Requests.GET, params, None)
         elif (status is None or status=="") and (pml_id is not None and pml_id!=""):
             params = {
-                'pml-id': pml_id,
+                'pml_id': pml_id,
             }
             return self.api_call_helper('get_gtt_by_pml_id', Requests.GET, params, None)
         else:
@@ -487,7 +487,7 @@ class PMClient(ApiService, Constants):
         """Get GTT order expiry date by pml_id"""
         self.validate_access_token()
         params = {
-            'pml-id': pml_id
+            'pml_id': pml_id
         }
         return self.api_call_helper('expiry_gtt', Requests.GET, params, None)
 
