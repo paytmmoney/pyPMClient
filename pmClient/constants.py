@@ -35,7 +35,10 @@ class Constants:
                 'funds_summary': '/accounts/v1/funds/summary?config={config}',
                 'holdings_value': '/holdings/v1/get-holdings-value',
                 'user_holdings_data': '/holdings/v1/get-user-holdings-data',
-                'security_master': '/data/v1/security-master?scrip_type={scrip_type}&exchange={exchange}',
+                'security_master': '/data/v1/security-master',
+                'security_master_scrip_type': '/data/v1/security-master?scrip_type={scrip_type}',
+                'security_master_exchange': '/data/v1/security-master?exchange={exchange}',
+                'security_master_all': '/data/v1/security-master?scrip_type={scrip_type}&exchange={exchange}',
 
                 # margin endpoints
                 'scrips_margin': '/margin/v1/scrips/calculator',
@@ -52,6 +55,8 @@ class Constants:
                 'price_chart_sym': '/data/v1/price-charts/sym',
                 
                 # gtt
+                'get_gtt_by_status': '/gtt/v1/gtt?status={status}',
+                'get_gtt_by_pml_id': '/gtt/v1/gtt?pml-id={pml_id}',
                 'get_gtt_by_pml_id_and_status': '/gtt/v1/gtt?status={status}&pml-id={pml_id}',
                 'gtt': '/gtt/v1/gtt',
                 'gtt_by_id': '/gtt/v1/gtt/{id}',

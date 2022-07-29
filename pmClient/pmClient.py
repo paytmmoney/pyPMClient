@@ -1,3 +1,4 @@
+from pdb import pm
 from .apiService import ApiService
 from .constants import Constants
 from .enums import OrderType, Requests, ProductType
@@ -318,8 +319,24 @@ class PMClient(ApiService, Constants):
         scrip_type: scrips the client wants to get data for it can be a list
         exchange: exchange NSE/BSE
         """
-        params = {'scrip_type': scrip_type, 'exchange': exchange}
-        return self.api_call_helper('security_master', Requests.GET, params, None)
+        if scrip_type is not None and scrip_type!="" and exchange is not None and exchange!="":
+            params = {
+                'scrip_type': scrip_type,
+                'exchange': exchange
+            }
+            return self.api_call_helper('security_master_all', Requests.GET, params, None)
+        elif (scrip_type is not None and scrip_type!="") and (exchange is None or exchange==""):
+            params = {
+                'scrip_type': scrip_type,
+            }
+            return self.api_call_helper('security_master_scrip_type', Requests.GET, params, None)
+        elif (scrip_type is None or scrip_type=="") and (exchange is not None and exchange!=""):
+            params = {
+                'exchange': exchange,
+            }
+            return self.api_call_helper('security_master_exchange', Requests.GET, params, None)
+        else:
+            return self.api_call_helper('security_master', Requests.GET, None, None)
 
     def generate_tpin(self):
         """To generate TPIN to place sell CNC order"""
@@ -365,12 +382,22 @@ class PMClient(ApiService, Constants):
     def get_gtt_by_pml_id_and_status(self, status=None, pml_id=None):
         """Get all gtt for the account or filter by status and pml_id"""
         self.validate_access_token()
-        if status is not None or pml_id is not None:
+        if status is not None and status!="" and pml_id is not None and pml_id!="":
             params = {
                 'status': status,
-                'pml_id': pml_id
+                'pml-id': pml_id
             }
             return self.api_call_helper('get_gtt_by_pml_id_and_status', Requests.GET, params, None)
+        elif (status is not None and status!="") and (pml_id is None or pml_id==""):
+            params = {
+                'status': status,
+            }
+            return self.api_call_helper('get_gtt_by_status', Requests.GET, params, None)
+        elif (status is None or status=="") and (pml_id is not None and pml_id!=""):
+            params = {
+                'pml-id': pml_id,
+            }
+            return self.api_call_helper('get_gtt_by_pml_id', Requests.GET, params, None)
         else:
             return self.api_call_helper('gtt', Requests.GET, None, None)
 
@@ -398,7 +425,7 @@ class PMClient(ApiService, Constants):
         request_body = {
             'segment': segment,
             'exchange': exchange,
-            'pml_id': pml_id,
+            'pml-id': pml_id,
             'security_id': security_id,
             'product_type': product_type,
             'set_price': set_price,
@@ -460,7 +487,7 @@ class PMClient(ApiService, Constants):
         """Get GTT order expiry date by pml_id"""
         self.validate_access_token()
         params = {
-            'pml_id': pml_id
+            'pml-id': pml_id
         }
         return self.api_call_helper('expiry_gtt', Requests.GET, params, None)
 

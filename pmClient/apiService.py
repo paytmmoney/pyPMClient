@@ -28,7 +28,7 @@ class ApiService(Constants):
                 raise ConnectionError(response.text)
             else:
                 raise requests.HTTPError(response.text, response.status_code)
-        if name == "security_master":
+        if not url.find('security-master') == -1:
             return response.text
         else:
             return json.loads(response.text)
