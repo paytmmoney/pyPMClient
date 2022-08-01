@@ -402,9 +402,7 @@ class PMClient(ApiService, Constants):
             return self.api_call_helper('gtt', Requests.GET, None, None)
 
     def create_gtt(self, segment, exchange, pml_id, security_id, product_type, set_price, transaction_type,
-                   order_type, trigger_type, quantity, trigger_price, limit_price, execution_ref_id=None,
-                   notification_ref_id=None, sub_type=None, triggered_at=None, triggered_at_price=None,
-                   triggered_at_type=None):
+                   order_type, trigger_type, quantity, trigger_price, limit_price):
         """Create a GTT Order"""
         self.validate_access_token()
         transaction_details = []
@@ -412,13 +410,7 @@ class PMClient(ApiService, Constants):
         transaction_details_obj = {
             'quantity': quantity,
             'trigger_price': trigger_price,
-            'limit_price': limit_price,
-            'execution_ref_id': execution_ref_id,
-            'notification_ref_id': notification_ref_id,
-            'sub_type': sub_type,
-            'triggered_at': triggered_at,
-            'triggered_at_price': triggered_at_price,
-            'triggered_at_type': triggered_at_type
+            'limit_price': limit_price
         }
         transaction_details.append(transaction_details_obj)
 
