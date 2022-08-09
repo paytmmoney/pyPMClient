@@ -235,3 +235,57 @@ pm.status(edis_request_id)
 ```python
 pm.logout()
 ```
+
+### Price Chart
+* To get data for the candle stick(ohlc) of time period.
+```python
+pm.price_chart_sym(cont, exchange, expiry, from_date, inst_type, interval, symbol, to_date, month_id, series, strike);
+```
+
+### Create GTT
+* To create a GTT order.
+```python
+pm.create_gtt(segment, exchange, pml_id, security_id, product_type, set_price, transaction_type, order_type, trigger_type, quantity, trigger_price, limit_price);
+```
+
+### Get All GTT
+* To get all GTT or get by pml_id or status.
+```python
+pm.get_gtt_by_status_or_pml_id(status, pml_id);
+```
+
+### Get GTT
+* To get GTT by Id.
+```python
+pm.get_gtt(id);
+```
+
+### Update GTT
+* To update GTT by Id.
+```python
+pm.update_gtt(id, set_price, transaction_type, order_type, trigger_type, quantity, trigger_price, limit_price);
+```
+
+### Delete GTT
+* To Delete GTT by Id.
+```python
+pm.delete_gtt(id);
+```
+
+### Get Expiry
+* To get expiry of the GTT.
+```python
+pm.get_gtt_expiry(pml_id);
+```
+
+### Get Aggregate
+* To get the aggregate of the GTTs.
+```python
+pm.get_gtt_aggregate();
+```
+
+### Get GTT InstructionId
+* To GTT by InstructionId.
+```python
+pm.get_gtt_by_instruction_id(id);
+```
