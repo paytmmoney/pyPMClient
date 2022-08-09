@@ -1,6 +1,7 @@
-from enums import OrderType, Requests, ProductType
-from apiService import ApiService
-from constants import Constants
+from pdb import pm
+from .apiService import ApiService
+from .constants import Constants
+from .enums import OrderType, Requests, ProductType
 
 
 class PMClient(ApiService, Constants):
@@ -82,7 +83,7 @@ class PMClient(ApiService, Constants):
         helper = 'place_regular'
 
         # For placing stop loss order or stop loss market order
-        if order_type is OrderType.StopLossLimit.value or OrderType.StopLossMarket.value:
+        if order_type is OrderType.StopLossLimit.value or order_type is OrderType.StopLossMarket.value:
             order['trigger_price'] = trigger_price
 
         # If placing sell CNC order
@@ -138,7 +139,7 @@ class PMClient(ApiService, Constants):
 
         helper = 'modify_regular'
 
-        if order_type is OrderType.StopLossLimit.value or OrderType.StopLossMarket.value:
+        if order_type is OrderType.StopLossLimit.value or order_type is OrderType.StopLossMarket.value:
             order['trigger_price'] = trigger_price
 
         # If modifying sell CNC order
@@ -192,7 +193,7 @@ class PMClient(ApiService, Constants):
         }
         helper = 'cancel_regular'
 
-        if order_type is OrderType.StopLossLimit.value or OrderType.StopLossMarket.value:
+        if order_type is OrderType.StopLossLimit.value or order_type is OrderType.StopLossMarket.value:
             order['trigger_price'] = trigger_price
 
         # For Cover Order
@@ -312,9 +313,30 @@ class PMClient(ApiService, Constants):
         self.validate_access_token()
         return self.api_call_helper('order_margin', Requests.GET, params, None)
 
-    def security_master(self):
-        """Details in a CSV file of all securities"""
-        return self.api_call_helper('security_master', Requests.GET, None, None)
+    def security_master(self, scrip_type=None, exchange=None):
+        """
+        Details in a CSV file of all securities
+        scrip_type: scrips the client wants to get data for it can be a list
+        exchange: exchange NSE/BSE
+        """
+        if scrip_type is not None and scrip_type != "" and exchange is not None and exchange != "":
+            params = {
+                'scrip_type': scrip_type,
+                'exchange': exchange
+            }
+            return self.api_call_helper('security_master_all', Requests.GET, params, None)
+        elif (scrip_type is not None and scrip_type != "") and (exchange is None or exchange == ""):
+            params = {
+                'scrip_type': scrip_type,
+            }
+            return self.api_call_helper('security_master_scrip_type', Requests.GET, params, None)
+        elif (scrip_type is None or scrip_type == "") and (exchange is not None and exchange != ""):
+            params = {
+                'exchange': exchange,
+            }
+            return self.api_call_helper('security_master_exchange', Requests.GET, params, None)
+        else:
+            return self.api_call_helper('security_master', Requests.GET, None, None)
 
     def generate_tpin(self):
         """To generate TPIN to place sell CNC order"""
@@ -337,3 +359,135 @@ class PMClient(ApiService, Constants):
         self.validate_access_token()
         params = {'edis_request_id': edis_request_id}
         return self.api_call_helper('status', Requests.GET, params, None)
+
+    def price_chart_sym(self, cont, exchange, expiry, from_date, inst_type, interval, symbol, to_date, month_id=None,
+                        series=None, strike=None):
+        """Get the historical data of the chart"""
+        self.validate_access_token()
+        request_body = {
+            'cont': cont,
+            'exchange': exchange,
+            'expiry': expiry,
+            'fromDate': from_date,
+            'instType': inst_type,
+            'interval': interval,
+            'monthId': month_id,
+            'series': series,
+            'strike': strike,
+            'symbol': symbol,
+            'toDate': to_date
+        }
+        return self.api_call_helper('price_chart_sym', Requests.POST, None, request_body)
+
+    def get_gtt_by_pml_id_and_status(self, status=None, pml_id=None):
+        """Get all gtt for the account or filter by status and pml_id"""
+        self.validate_access_token()
+        if status is not None and status != "" and pml_id is not None and pml_id != "":
+            params = {
+                'status': status,
+                'pml_id': pml_id
+            }
+            return self.api_call_helper('get_gtt_by_pml_id_and_status', Requests.GET, params, None)
+        elif (status is not None and status != "") and (pml_id is None or pml_id == ""):
+            params = {
+                'status': status,
+            }
+            return self.api_call_helper('get_gtt_by_status', Requests.GET, params, None)
+        elif (status is None or status == "") and (pml_id is not None and pml_id != ""):
+            params = {
+                'pml_id': pml_id,
+            }
+            return self.api_call_helper('get_gtt_by_pml_id', Requests.GET, params, None)
+        else:
+            return self.api_call_helper('gtt', Requests.GET, None, None)
+
+    def create_gtt(self, segment, exchange, pml_id, security_id, product_type, set_price, transaction_type,
+                   order_type, trigger_type, quantity, trigger_price, limit_price):
+        """Create a GTT Order"""
+        self.validate_access_token()
+        transaction_details = []
+
+        transaction_details_obj = {
+            'quantity': quantity,
+            'trigger_price': trigger_price,
+            'limit_price': limit_price
+        }
+        transaction_details.append(transaction_details_obj)
+
+        request_body = {
+            'segment': segment,
+            'exchange': exchange,
+            'pml-id': pml_id,
+            'security_id': security_id,
+            'product_type': product_type,
+            'set_price': set_price,
+            'transaction_type': transaction_type,
+            'order_type': order_type,
+            'trigger_type': trigger_type,
+            'transaction_details': transaction_details
+        }
+
+        return self.api_call_helper('gtt', Requests.POST, None, request_body)
+
+    def get_gtt(self, id):
+        """Get GTT order by id"""
+        self.validate_access_token()
+        params = {
+            'id': id
+        }
+        return self.api_call_helper('gtt_by_id', Requests.GET, params, None)
+
+    def update_gtt(self, id, quantity, trigger_price, limit_price, set_price, transaction_type, order_type,
+                   trigger_type):
+        """Update GTT order"""
+        self.validate_access_token()
+        params = {
+            'id': id
+        }
+
+        transaction_details = []
+
+        transaction_details_obj = {
+            'quantity': quantity,
+            'trigger_price': trigger_price,
+            'limit_price': limit_price
+        }
+        transaction_details.append(transaction_details_obj)
+
+        request_body = {
+            'set_price': set_price,
+            'transaction_type': transaction_type,
+            'order_type': order_type,
+            'trigger_type': trigger_type,
+            'transaction_details': transaction_details
+        }
+        return self.api_call_helper('gtt_by_id', Requests.PUT, params, request_body)
+
+    def delete_gtt(self, id):
+        """Delete GTT order"""
+        self.validate_access_token()
+        params = {
+            'id': id
+        }
+        return self.api_call_helper('gtt_by_id', Requests.DELETE, params, None)
+
+    def get_gtt_aggregate(self):
+        """Get GTT orders aggregate"""
+        self.validate_access_token()
+        return self.api_call_helper('gtt_aggregate', Requests.GET, None, None)
+
+    def get_gtt_expiry_date(self, pml_id):
+        """Get GTT order expiry date by pml_id"""
+        self.validate_access_token()
+        params = {
+            'pml_id': pml_id
+        }
+        return self.api_call_helper('expiry_gtt', Requests.GET, params, None)
+
+    def get_gtt_by_instruction_id(self, id):
+        """Get GTT order by Instruction Id"""
+        self.validate_access_token()
+        params = {
+            'id': id
+        }
+        return self.api_call_helper('gtt_by_instruction_id', Requests.GET, params, None)
