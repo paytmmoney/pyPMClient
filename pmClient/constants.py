@@ -6,63 +6,64 @@ class Constants:
             'routes': {
                 # login endpoints
                 'login': 'https://login.paytmmoney.com/merchant-login?apiKey=',
-                'logout': '/accounts/v1/logout',
-                'user_details': '/accounts/v1/user/details',
-                'access_token': '/accounts/v1/gettoken?apiKey={apiKey}&requestToken={requestToken}',
+                'logout': ['/accounts/v1/logout',{'access_token','public_access_token','read_access_token'}],
+                'user_details': ['/accounts/v1/user/details',{'access_token','read_access_token'}],
+                'access_token':['/accounts/v2/gettoken',{}],
 
                 # regular order endpoints
-                'place_regular': '/orders/v1/place/regular',
-                'modify_regular': '/orders/v1/modify/regular',
-                'cancel_regular': '/orders/v1/cancel/regular',
-                'convert_regular': '/orders/v1/convert/regular',
+                'place_regular': ['/orders/v1/place/regular',{'access_token'}],
+                'modify_regular': ['/orders/v1/modify/regular',{'access_token'}],
+                'cancel_regular': ['/orders/v1/cancel/regular',{'access_token'}],
+                'convert_regular': ['/orders/v1/convert/regular',{'access_token'}],
 
                 # cover order endpoints
-                'place_cover': '/orders/v1/place/cover',
-                'modify_cover': '/orders/v1/modify/cover',
-                'exit_cover': '/orders/v1/exit/cover',
+                'place_cover': ['/orders/v1/place/cover',{'access_token'}],
+                'modify_cover': ['/orders/v1/modify/cover',{'access_token'}],
+                'exit_cover': ['/orders/v1/exit/cover',{'access_token'}],
 
                 # bracket order endpoints
-                'place_bracket': '/orders/v1/place/bracket',
-                'modify_bracket': '/orders/v1/modify/bracket',
-                'exit_bracket': '/orders/v1/exit/bracket',
+                'place_bracket': ['/orders/v1/place/bracket',{'access_token'}],
+                'modify_bracket': ['/orders/v1/modify/bracket',{'access_token'}],
+                'exit_bracket': ['/orders/v1/exit/bracket',{'access_token'}],
 
-                # orderBook, tradeBook & other details endpoints
-                'order_book': '/orders/v1/order-book',
-                'trade_details': '/orders/v1/trade-details?order_no={order_no}&leg_no={leg_no}&segment={segment}',
-                'position': '/orders/v1/position',
-                'position_details': '/orders/v1/position-details?security_id={security_id}&product={product}&exchange'
-                                    '={exchange}',
-                'funds_summary': '/accounts/v1/funds/summary?config={config}',
-                'holdings_value': '/holdings/v1/get-holdings-value',
-                'user_holdings_data': '/holdings/v1/get-user-holdings-data',
-                'security_master': '/data/v1/security-master',
-                'security_master_scrip_type': '/data/v1/security-master?scrip_type={scrip_type}',
-                'security_master_exchange': '/data/v1/security-master?exchange={exchange}',
-                'security_master_all': '/data/v1/security-master?scrip_type={scrip_type}&exchange={exchange}',
+                # order-book, trade details endpoints
+                'order_book': ['/orders/v1/order-book',{'access_token','read_access_token'}],
+                'trade_details': ['/orders/v1/trade-details?order_no={order_no}&leg_no={leg_no}&segment={segment}',{'access_token','read_access_token'}],
+                
+                # positions and holdings endpoints
+                'position': ['/orders/v1/position',{'access_token','read_access_token'}],
+                'position_details': ['/orders/v1/position-details?security_id={security_id}&product={product}&exchange={exchange}',{'access_token','read_access_token'}],
+                'funds_summary': ['/accounts/v1/funds/summary?config={config}',{'access_token','read_access_token'}],
+                'holdings_value': ['/holdings/v1/get-holdings-value',{'access_token','read_access_token'}],
+                'user_holdings_data': ['/holdings/v1/get-user-holdings-data',{'access_token','read_access_token'}],
+                
+                # security master endpoints
+                'security_master': ['/data/v1/scrips/{file_name}',{}],
 
                 # margin endpoints
-                'scrips_margin': '/margin/v1/scrips/calculator',
-                'order_margin': '/margin/v1/order/calculator?source={source}&exchange={exchange}&segment={'
-                                'segment}&security_id={security_id}&txn_type={txn_type}&quantity={quantity}&price={'
-                                'price}&product={product}&trigger_price={trigger_price}',
+                'scrips_margin': ['/margin/v1/scrips/calculator',{'access_token','read_access_token'}],
+                'order_margin': ['/margin/v1/order/calculator?source={source}&exchange={exchange}&segment={segment}&security_id={security_id}&txn_type={txn_type}&quantity={quantity}&price={price}&product={product}&trigger_price={trigger_price}',{'access_token','read_access_token'}],
 
                 # edis endpoints
-                'generate_tpin': '/edis/v1/generate/tpin',
-                'validate_tpin': '/edis/v1/validate/tpin',
-                'status': '/edis/v1/status?edis_request_id={edis_request_id}',
+                'generate_tpin': ['/edis/v1/generate/tpin',{'access_token'}],
+                'validate_tpin': ['/edis/v1/validate/tpin',{'access_token'}],
+                'status': ['/edis/v1/status?edis_request_id={edis_request_id}',{'access_token'}],
                 
                 # historical_data endpoints
-                'price_chart_sym': '/data/v1/price-charts/sym',
+                'price_chart_sym': ['/data/v1/price-charts/sym',{'access_token','read_access_token'}],
                 
-                # gtt
-                'get_gtt_by_status': '/gtt/v1/gtt?status={status}',
-                'get_gtt_by_pml_id': '/gtt/v1/gtt?pml-id={pml_id}',
-                'get_gtt_by_pml_id_and_status': '/gtt/v1/gtt?status={status}&pml-id={pml_id}',
-                'gtt': '/gtt/v1/gtt',
-                'gtt_by_id': '/gtt/v1/gtt/{id}',
-                'gtt_aggregate': '/gtt/v1/gtt/aggregate',
-                'expiry_gtt': '/gtt/v1/gtt/expiry-date?pml-id={pml_id}',
-                'gtt_by_instruction_id': '/gtt/v1/gtt/instructions/{id}'
+                # gtt endpoints
+                'get_gtt_by_status': ['/gtt/v1/gtt?status={status}',{'access_token'}],
+                'get_gtt_by_pml_id': ['/gtt/v1/gtt?pml-id={pml_id}',{'access_token'}],
+                'get_gtt_by_pml_id_and_status': ['/gtt/v1/gtt?status={status}&pml-id={pml_id}',{'access_token'}],
+                'gtt': ['/gtt/v1/gtt',{'access_token'}],
+                'gtt_by_id': ['/gtt/v1/gtt/{id}',{'access_token'}],
+                'gtt_aggregate': ['/gtt/v1/gtt/aggregate',{'access_token','read_access_token'}],
+                'expiry_gtt': ['/gtt/v1/gtt/expiry-date?pml-id={pml_id}',{'access_token','read_access_token'}],
+                'gtt_by_instruction_id': ['/gtt/v1/gtt/instructions/{id}',{'access_token','read_access_token'}],
+
+                # live market data endpoints
+                'live_market_data': ['/data/v1/price/live?mode={mode_type}&pref={prefrences}',{'access_token','read_access_token'}]
 
             }
         }
