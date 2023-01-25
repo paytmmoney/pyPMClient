@@ -21,26 +21,29 @@ class PMClient(ApiService, Constants):
         ApiService.__init__(self)
         Constants.__init__(self)
 
-    # Login flow to generate access token
     def set_access_token(self, access_token):
+        """Set and initialize access token"""
         self.access_token = access_token
         ApiService.__init__(self)
         Constants.__init__(self)
         return self.access_token
 
     def set_public_access_token(self, public_access_token):
+        """Set and initialize public access token"""
         self.public_access_token = public_access_token
         ApiService.__init__(self)
         Constants.__init__(self)
         return self.public_access_token
 
     def set_read_access_token(self, read_access_token):
+        """Set and initialize read access token"""        
         self.read_access_token = read_access_token
         ApiService.__init__(self)
         Constants.__init__(self)
         return self.read_access_token
 
     def login(self, state_key):
+        """Login URL to get the request token"""
         config = self._service_config
         if state_key is not None:
             return "%s%s%s%s" % (config['routes']['login'], self._api_key, config['login_param'], state_key)
@@ -48,6 +51,7 @@ class PMClient(ApiService, Constants):
             raise TypeError("State Key cannot be null or empty")
 
     def generate_session(self, request_token=None):
+        """Generate session and get the tokens"""
         if request_token is not None:
             request_body = {'api_key':self._api_key,'api_secret_key':self.api_secret,'request_token':request_token}
         else:
@@ -314,7 +318,7 @@ class PMClient(ApiService, Constants):
 
     def security_master(self, file_name):
         """
-        Details in a CSV file of all securities
+        Details in a file of all securities
         file_name: File name of the csv file   
         """
         params = {
@@ -465,6 +469,13 @@ class PMClient(ApiService, Constants):
         return ApiService.api_call_helper(self, 'gtt_by_instruction_id', Requests.GET, params, None)
 
     def live_market_data(self, mode_type, exchange, scrip_id, scrip_type):
+        """
+        Live Market data 
+        mode_type: mode of preference
+        exchange: Exchange NSE or BSE
+        scrip_id: Security id
+        scrip_type: Scrip type
+        """
         params = {
             'mode_type': mode_type,
             'prefrences': exchange+":"+str(scrip_id)+":"+scrip_type

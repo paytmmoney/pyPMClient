@@ -1,14 +1,20 @@
 import pytest
 import requests
-
+import sys
+sys.path.append('../')
 
 def test_set_access_token(pm_api):
-    # pm_api.set_access_token("access_token")
     assert pm_api.set_access_token("access_token") == "access_token"
+
+def test_set_public_access_token(pm_api):
+    assert pm_api.set_public_access_token("public_access_token") == "public_access_token"
+
+def test_set_read_access_token(pm_api):
+    assert pm_api.set_read_access_token("read_access_token") == "read_access_token"
 
 
 def test_login(pm_api):
-    assert pm_api.login(state_key="<STATE_KEY>") == "https://login-stg.paytmmoney.com/merchant-login?apiKey=<API_KEY>&state=<STATE_KEY>"
+    assert pm_api.login(state_key="<STATE_KEY>") == "https://login.paytmmoney.com/merchant-login?apiKey=<API_KEY>&state=<STATE_KEY>"
 
 
 def test_login_type(pm_api):
@@ -32,8 +38,8 @@ def test_logout(pm_api):
 
 
 def test_place_order_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(AttributeError):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
         pm_api.place_order(
             source="W",
             txn_type="B",
@@ -181,8 +187,8 @@ def test_place_order_connection_bracket_type2(pm_api):
 
 
 def test_modify_order_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(AttributeError):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
         pm_api.modify_order(
             source="N",
             txn_type="B",
@@ -367,8 +373,8 @@ def test_modify_order_connection_bracket_type2(pm_api):
 
 
 def test_cancel_order_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(AttributeError):
+    pm_api.access_token = "test_acess_token"
+    with pytest.raises(ConnectionError):
         pm_api.cancel_order(
             source="N",
             txn_type="B",
@@ -612,8 +618,8 @@ def test_position_details_connection(pm_api):
 
 def test_funds_summary_attribute(pm_api):
     # If no funds could be fetched, this exception will be raised.
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(AttributeError):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
         pm_api.funds_summary(config="r")
 
 
@@ -636,8 +642,8 @@ def test_user_holdings_data_connection(pm_api):
 
 
 def test_scrips_margin_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(requests.HTTPError):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
         pm_api.scrips_margin(
             source="W",
             margin_list=None
@@ -728,8 +734,8 @@ def test_generate_tpin_connection(pm_api):
 
 
 def test_validate_tpin_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(AttributeError):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
         pm_api.validate_tpin(
             trade_type="trade_type",
             isin_list=None
@@ -747,8 +753,8 @@ def test_validate_tpin_connection(pm_api):
 
 def test_status_attribute(pm_api):
     # Invalid edis_request_id or null may cause this exception.
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(AttributeError):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
         pm_api.status(edis_request_id="req_id")
 
 
@@ -814,8 +820,8 @@ def test_create_gtt_connection(pm_api):
 
 
 def test_create_gtt_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(AttributeError):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
         pm_api.create_gtt(
             segment="E",
             exchange=9.0,
@@ -842,8 +848,8 @@ def test_get_gtt_by_status_or_id_connection(pm_api):
 
 
 def test_get_gtt_by_status_or_id_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
-    with pytest.raises(AttributeError):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
         pm_api.get_gtt_by_pml_id_and_status(
             status="ACTIE",
             pml_id="1000001488"
@@ -915,5 +921,15 @@ def test_get_gtt_by_instruction_id_connection(pm_api):
     with pytest.raises(ConnectionError):
         pm_api.get_gtt_by_instruction_id(
             id="4563",
+        )
+
+def test_live_market_data(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.live_market_data(
+            mode_type="FULL",
+            exchange="NSE", 
+            scrip_id=6705, 
+            scrip_type="EQUITY"
         )
 
