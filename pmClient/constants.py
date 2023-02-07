@@ -65,6 +65,10 @@ class Constants:
                 # live market data endpoints
                 'live_market_data': ['/data/v1/price/live?mode={mode_type}&pref={preferences}',{'access_token','read_access_token'}],
 
+                #option chain endpoints
+                'option_chain': ['/fno/v1/option-chain?type={type}&symbol={symbol}&expiry={expiry}',{'access_token','read_access_token'}],
+                'option_chain_config': ['/fno/v1/option-chain/config?symbol={symbol}',{'access_token','read_access_token'}],
+
                 # Broadcast server websocket endpoint
                 'broadcast_websocket': ['wss://developer-ws.paytmmoney.com/broadcast/user/v1/data?x_jwt_token={public_access_token}']
             }

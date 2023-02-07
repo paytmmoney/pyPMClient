@@ -51,6 +51,9 @@ class ApiService(Constants):
         return r
 
     def validate_token(self, config, name):
+        """
+        Validate jwt tokens 
+        """
         tokens = (config['routes'][name][1])
         jwt_token = None
         if self.access_token is not None and "access_token" in tokens:

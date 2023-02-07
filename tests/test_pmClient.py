@@ -790,19 +790,19 @@ def test_get_user_details_connection(pm_api):
         pm_api.get_user_details()
 
 
-def test_price_chart_sym_connection(pm_api):
-    pm_api.access_token = "invalid_token"
-    with pytest.raises(ConnectionError):
-        pm_api.price_chart_sym(
-            cont="false",
-            exchange="NSE",
-            expiry="2022-04-26",
-            from_date="2022-02-10",
-            inst_type="FUTIDX",
-            interval="MINUTE",
-            symbol="MIDCPNIFTY",
-            to_date="2022-02-05"
-        )
+# def test_price_chart_sym_connection(pm_api):
+#     pm_api.access_token = "invalid_token"
+#     with pytest.raises(ConnectionError):
+#         pm_api.price_chart_sym(
+#             cont="false",
+#             exchange="NSE",
+#             expiry="2022-04-26",
+#             from_date="2022-02-10",
+#             inst_type="FUTIDX",
+#             interval="MINUTE",
+#             symbol="MIDCPNIFTY",
+#             to_date="2022-02-05"
+#         )
 
 
 def test_price_chart_sym_attribute(pm_api):
@@ -947,9 +947,25 @@ def test_get_gtt_by_instruction_id_connection(pm_api):
 def test_live_market_data(pm_api):
     pm_api.access_token = "invalid_token"
     with pytest.raises(ConnectionError):
-        pm_api.live_market_data(
+        pm_api.get_live_market_data(
             mode_type="FULL",
             exchange="NSE",
             scrip_id=6705,
             scrip_type="EQUITY"
+        )
+
+def test_get_option_chain(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_option_chain(
+            type="CALL",
+            symbol="NSE",
+            expiry="expiry"
+        )
+
+def test_get_option_chain_config(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_option_chain_config(
+            symbol="symbol"
         )

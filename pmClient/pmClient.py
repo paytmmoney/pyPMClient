@@ -345,23 +345,23 @@ class PMClient(ApiService, Constants):
         params = {'edis_request_id': edis_request_id}
         return ApiService.api_call_helper(self, 'status', Requests.GET, params, None)
 
-    def price_chart_sym(self, cont, exchange, expiry, from_date, inst_type, interval, symbol, to_date, month_id=None,
-                        series=None, strike=None):
-        """Get the historical data of the chart"""
-        request_body = {
-            'cont': cont,
-            'exchange': exchange,
-            'expiry': expiry,
-            'fromDate': from_date,
-            'instType': inst_type,
-            'interval': interval,
-            'monthId': month_id,
-            'series': series,
-            'strike': strike,
-            'symbol': symbol,
-            'toDate': to_date
-        }
-        return ApiService.api_call_helper(self, 'price_chart_sym', Requests.POST, None, request_body)
+    # def price_chart_sym(self, cont, exchange, expiry, from_date, inst_type, interval, symbol, to_date, month_id=None,
+    #                     series=None, strike=None):
+    #     """Get the historical data of the chart"""
+    #     request_body = {
+    #         'cont': cont,
+    #         'exchange': exchange,
+    #         'expiry': expiry,
+    #         'fromDate': from_date,
+    #         'instType': inst_type,
+    #         'interval': interval,
+    #         'monthId': month_id,
+    #         'series': series,
+    #         'strike': strike,
+    #         'symbol': symbol,
+    #         'toDate': to_date
+    #     }
+    #     return ApiService.api_call_helper(self, 'price_chart_sym', Requests.POST, None, request_body)
 
     def get_gtt_by_pml_id_and_status(self, status=None, pml_id=None):
         """Get all gtt for the account or filter by status and pml_id"""
@@ -468,7 +468,7 @@ class PMClient(ApiService, Constants):
         }
         return ApiService.api_call_helper(self, 'gtt_by_instruction_id', Requests.GET, params, None)
 
-    def live_market_data(self, mode_type, exchange, scrip_id, scrip_type):
+    def get_live_market_data(self, mode_type, exchange, scrip_id, scrip_type):
         """
         Live Market data 
         mode_type: mode of preference
@@ -481,3 +481,27 @@ class PMClient(ApiService, Constants):
             'preferences': exchange+":"+str(scrip_id)+":"+scrip_type
         }
         return ApiService.api_call_helper(self, 'live_market_data', Requests.GET, params, None)
+        
+    def get_option_chain(self, type, symbol, expiry):
+        """
+        Option Chain
+        type: type of option chain
+        symbol: symbol of option chain
+        expiry: expiry in DD-MM-YYYY format
+        """
+        params = {
+            'type': type,
+            'symbol': symbol,
+            'expiry':expiry
+        }
+        return ApiService.api_call_helper(self, 'option_chain', Requests.GET, params, None)
+
+    def get_option_chain_config(self, symbol):
+        """
+        Option Chain config 
+        symbol: symbol of option chain
+        """
+        params = {
+            'symbol': symbol
+        }
+        return ApiService.api_call_helper(self, 'option_chain_config', Requests.GET, params, None)
