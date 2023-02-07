@@ -1,20 +1,25 @@
 import pytest
 import requests
 import sys
+
 sys.path.append('../')
+
 
 def test_set_access_token(pm_api):
     assert pm_api.set_access_token("access_token") == "access_token"
 
+
 def test_set_public_access_token(pm_api):
     assert pm_api.set_public_access_token("public_access_token") == "public_access_token"
+
 
 def test_set_read_access_token(pm_api):
     assert pm_api.set_read_access_token("read_access_token") == "read_access_token"
 
 
 def test_login(pm_api):
-    assert pm_api.login(state_key="<STATE_KEY>") == "https://login.paytmmoney.com/merchant-login?apiKey=<API_KEY>&state=<STATE_KEY>"
+    assert pm_api.login(
+        state_key="<STATE_KEY>") == "https://login.paytmmoney.com/merchant-login?apiKey=<API_KEY>&state=<STATE_KEY>"
 
 
 def test_login_type(pm_api):
@@ -32,9 +37,24 @@ def test_generate_session_connection(pm_api):
         pm_api.generate_session("request_token")
 
 
-def test_logout(pm_api):
+def test_generate_session_access_token(pm_api, mocker):
+    response = {
+        "access_token": "access_token",
+        "public_access_token": "public_access_token",
+        "read_access_token": "read_access_token"
+    }
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.generate_session("request_token")
+
+
+def test_logout_exp(pm_api):
     with pytest.raises(TypeError):
         pm_api.logout()
+
+
+def test_logout(pm_api, mocker):
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value="response")
+    pm_api.logout()
 
 
 def test_place_order_attribute(pm_api):
@@ -923,13 +943,13 @@ def test_get_gtt_by_instruction_id_connection(pm_api):
             id="4563",
         )
 
+
 def test_live_market_data(pm_api):
     pm_api.access_token = "invalid_token"
     with pytest.raises(ConnectionError):
         pm_api.live_market_data(
             mode_type="FULL",
-            exchange="NSE", 
-            scrip_id=6705, 
+            exchange="NSE",
+            scrip_id=6705,
             scrip_type="EQUITY"
         )
-

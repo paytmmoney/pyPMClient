@@ -2,3 +2,4 @@ requests~=2.27.1
 pytest~=7.0.1
 websocket-client~=1.5.0
 rel~=0.4.8
+mocker~=1.1.1
