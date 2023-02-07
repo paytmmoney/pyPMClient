@@ -63,7 +63,9 @@ class Constants:
                 'gtt_by_instruction_id': ['/gtt/v1/gtt/instructions/{id}',{'access_token','read_access_token'}],
 
                 # live market data endpoints
-                'live_market_data': ['/data/v1/price/live?mode={mode_type}&pref={prefrences}',{'access_token','read_access_token'}]
+                'live_market_data': ['/data/v1/price/live?mode={mode_type}&pref={preferences}',{'access_token','read_access_token'}],
 
+                # Broadcast server websocket endpoint
+                'broadcast_websocket': ['wss://developer-ws.paytmmoney.com/broadcast/user/v1/data?x_jwt_token={public_access_token}']
             }
         }

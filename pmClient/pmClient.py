@@ -478,6 +478,6 @@ class PMClient(ApiService, Constants):
         """
         params = {
             'mode_type': mode_type,
-            'prefrences': exchange+":"+str(scrip_id)+":"+scrip_type
+            'preferences': exchange+":"+str(scrip_id)+":"+scrip_type
         }
         return ApiService.api_call_helper(self, 'live_market_data', Requests.GET, params, None)
