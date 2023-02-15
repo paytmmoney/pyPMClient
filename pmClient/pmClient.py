@@ -79,8 +79,7 @@ class PMClient(ApiService, Constants):
 
     # Orders
     def place_order(self, txn_type, exchange, segment, product, security_id, quantity, validity, order_type, price,
-                    source, off_mkt_flag=False, trigger_price=None, profit_value=None, stoploss_value=None,
-                    edis_txn_id=None, edis_auth_mode=None):
+                    source, off_mkt_flag=False, trigger_price=None, profit_value=None, stoploss_value=None):
         order = {
             'txn_type': txn_type,
             'exchange': exchange,
@@ -100,11 +99,6 @@ class PMClient(ApiService, Constants):
         # For placing stop loss order or stop loss market order
         if order_type is OrderType.StopLossLimit.value or order_type is OrderType.StopLossMarket.value:
             order['trigger_price'] = trigger_price
-
-        # If placing sell CNC order
-        if edis_txn_id is not None:
-            order['edis_txn_id'] = edis_txn_id
-            order['edis_auth_mode'] = edis_auth_mode
 
         # For Cover Order
         if product is ProductType.CoverOrder.value:
@@ -132,7 +126,7 @@ class PMClient(ApiService, Constants):
 
     def modify_order(self, source, txn_type, exchange, segment, product, security_id, quantity, validity, order_type,
                      price, mkt_type, order_no, serial_no, group_id, trigger_price=None, off_mkt_flag=False,
-                     leg_no=None, algo_order_no=None, edis_txn_id=None, edis_auth_mode=None):
+                     leg_no=None, algo_order_no=None):
         order = {
             'txn_type': txn_type,
             'exchange': exchange,
@@ -155,11 +149,6 @@ class PMClient(ApiService, Constants):
 
         if order_type is OrderType.StopLossLimit.value or order_type is OrderType.StopLossMarket.value:
             order['trigger_price'] = trigger_price
-
-        # If modifying sell CNC order
-        if edis_txn_id is not None:
-            order['edis_txn_id'] = edis_txn_id
-            order['edis_auth_mode'] = edis_auth_mode
 
         # For Cover Order
         if product is ProductType.CoverOrder.value:
@@ -232,7 +221,7 @@ class PMClient(ApiService, Constants):
         return ApiService.api_call_helper(self, helper, Requests.POST, None, order)
 
     def convert_regular(self, source, txn_type, exchange, mkt_type, segment, product_from, product_to, quantity,
-                        security_id, edis_auth_mode=None, edis_txn_id=None):
+                        security_id):
         order = {
             'txn_type': txn_type,
             'exchange': exchange,
@@ -244,11 +233,6 @@ class PMClient(ApiService, Constants):
             'product_from': product_from,
             'product_to': product_to,
         }
-
-        # If converting sell CNC order
-        if edis_txn_id is not None:
-            order['edis_txn_id'] = edis_txn_id
-            order['edis_auth_mode'] = edis_auth_mode
 
         return ApiService.api_call_helper(self, 'convert_regular', Requests.POST, None, order)
 

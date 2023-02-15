@@ -107,9 +107,7 @@ def test_place_order_connection_edis(pm_api):
             validity="DAY",
             order_type="LMT",
             price=620.0,
-            off_mkt_flag=False,
-            edis_txn_id=1012,
-            edis_auth_mode="TPIN"
+            off_mkt_flag=False
         )
 
 
@@ -268,9 +266,7 @@ def test_modify_order_connection_edis(pm_api):
             mkt_type="NL",
             order_no="order_no",
             serial_no=1,
-            group_id=8,
-            edis_txn_id=1012,
-            edis_auth_mode="TPIN"
+            group_id=8
         )
 
 
@@ -607,8 +603,6 @@ def test_convert_order_attribute(pm_api):
             security_id="2885",
             quantity=100,
             mkt_type="NL",
-            edis_auth_mode="None",
-            edis_txn_id="None"
         )
 
 
