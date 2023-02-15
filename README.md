@@ -19,7 +19,7 @@ trading platform. Execute orders in real time, manage user portfolio, stream liv
 ## Usage
 
 ### Install Package
-##### User need to clone this repo and add it to the project.
+##### User need to clone this repo and add it locally to their project.
 
 
 ### API Usage
