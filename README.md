@@ -200,7 +200,8 @@ pm.user_holdings_data()
 
 ### Security Master
 * Data will be provided in CSV format.
-* User can filter by file_name
+* User can filter by file_name.
+* To get the supported fileName [API Doc for fileNames](https://developer.paytmmoney.com/docs/api/security-master/)
 ```python
 pm.security_master(file_name)
 ```
