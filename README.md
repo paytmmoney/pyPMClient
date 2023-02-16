@@ -299,11 +299,11 @@ pm.get_option_chain_config("symbol")
 ```
 
 ### WebSocket Usage
-
+* To use websocket client in your project, add below code in a python file -
 ```python
 from pmClient.WebSocketClient import WebSocketClient
 
-webSocketClient = WebSocketClient("your_public_access_token")
+webSocketClient = WebSocketClient("your_public_access_token") # pass your public access token here
 
 customerPreferences = []
 
@@ -314,6 +314,8 @@ preference = {
     "exchangeType": 'NSE',  # 'BSE', 'NSE'
     "scripId": '13'
 }
+
+# create as many preferences as you like as shown above and append them in customerPreferences array
 
 customerPreferences.append(preference)
 
