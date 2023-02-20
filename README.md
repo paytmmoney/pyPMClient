@@ -39,7 +39,7 @@ from pyPMClient import PMClient
 ```python
 # Initialize PMClient using apiKey and apiSecret.
 pm = PMClient(api_secret="your_api_secret", api_key="your_api_key")
-# Initialize PMClient using apiKey, apiSecret & access_token if user has already generated.
+# Initialize PMClient using apiKey, apiSecret & jwt tokens if user has already generated.
 pm = PMClient(api_secret="your_api_secret", api_key="your_api_key", access_token="access_token", public_access_token="public_access_token", read_access_token="read_access_token")
 ```
 
