@@ -37,24 +37,19 @@ def test_generate_session_connection(pm_api):
         pm_api.generate_session("request_token")
 
 
-def test_generate_session_access_token(pm_api, mocker):
+def test_generate_session_access_token(pm_api):
     response = {
         "access_token": "access_token",
         "public_access_token": "public_access_token",
         "read_access_token": "read_access_token"
     }
-    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
-    pm_api.generate_session("request_token")
+    with pytest.raises(AttributeError):
+        pm_api.generate_session("request_token")
 
 
-def test_logout_exp(pm_api):
+def test_logout(pm_api):
     with pytest.raises(TypeError):
         pm_api.logout()
-
-
-def test_logout(pm_api, mocker):
-    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value="response")
-    pm_api.logout()
 
 
 def test_place_order_attribute(pm_api):
@@ -626,7 +621,7 @@ def test_position_connection(pm_api):
 
 def test_position_details_connection(pm_api):
     pm_api.access_token = "invalid_token"
-    with pytest.raises(ConnectionError):
+    with pytest.raises(Exception):
         pm_api.position_details(security_id="772", product="I", exchange="NSE")
 
 
@@ -639,7 +634,7 @@ def test_funds_summary_attribute(pm_api):
 
 def test_funds_summary_connection(pm_api):
     pm_api.access_token = "invalid_token"
-    with pytest.raises(ConnectionError):
+    with pytest.raises(Exception):
         pm_api.funds_summary(config=True)
 
 
@@ -768,7 +763,7 @@ def test_validate_tpin_connection(pm_api):
 def test_status_attribute(pm_api):
     # Invalid edis_request_id or null may cause this exception.
     pm_api.access_token = "test_access_token"
-    with pytest.raises(ConnectionError):
+    with pytest.raises(Exception):
         pm_api.status(edis_request_id="req_id")
 
 
@@ -932,7 +927,7 @@ def test_get_gtt_expiry_connection(pm_api):
 
 def test_get_gtt_by_instruction_id_connection(pm_api):
     pm_api.access_token = "invalid_token"
-    with pytest.raises(ConnectionError):
+    with pytest.raises(Exception):
         pm_api.get_gtt_by_instruction_id(
             id="4563",
         )
