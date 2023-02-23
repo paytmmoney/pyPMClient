@@ -1,14 +1,16 @@
 import logging
-
-from pmClient.pmClient import PMClient
+import sys
+sys.path.append('../')
+from pmClient import PMClient
 
 pm = PMClient(api_key="api_key", api_secret="api_secret")
-
-pm.generate_session("your_request_token")
+pm.generate_session("request_token")
 
 pm.set_access_token("your_access_token")
+pm.set_public_access_token("your_public_access_token")
+pm.set_read_access_token("your_read_access_token")
 
 try:
-    pm.order_book()
+    pm.get_user_details()
 except Exception as e:
-    logging.info("Error : {}".format(e))
+    logging.error("Error : {}".format(e))
