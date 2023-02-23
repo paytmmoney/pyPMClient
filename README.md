@@ -1,4 +1,4 @@
-# The Paytm Money Equity 1.0 API Python client
+# The Paytm Money Equity 1.1.0 API Python client
 
 The official Python client for communicating with [PaytmMoney Equity API](https://www.paytmmoney.com/stocks/).
 
