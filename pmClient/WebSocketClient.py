@@ -8,6 +8,7 @@ import struct
 import rel
 import websocket
 from .constants import Constants
+from .epochConverterUtil import epoch_converter
 
 
 class WebSocketClient(Constants):
@@ -202,8 +203,8 @@ class WebSocketClient(Constants):
         :param position: current position of packet to be processed
         """
         response.append({
-            "LTP": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
-            "LTT": self.unpack(byte_buffer, position + 4, position + 8),
+            "last_price": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
+            "last_update_time": epoch_converter(self.unpack(byte_buffer, position + 4, position + 8)),
             "security_id": self.unpack(byte_buffer, position + 8, position + 12),
             "tradable": byte_buffer[position + 12],
             "mode": byte_buffer[position + 13],
@@ -220,8 +221,8 @@ class WebSocketClient(Constants):
         :param position: current position of packet to be processed
         """
         response.append({
-            "LTP": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
-            "LTT": self.unpack(byte_buffer, position + 4, position + 8),
+            "last_price": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
+            "last_trade_time": epoch_converter(self.unpack(byte_buffer, position + 4, position + 8)),
             "security_id": self.unpack(byte_buffer, position + 8, position + 12),
             "tradable": byte_buffer[position + 12],
             "mode": byte_buffer[position + 13],
@@ -238,8 +239,8 @@ class WebSocketClient(Constants):
         :param position: current position of packet to be processed
         """
         response.append({
-            "LTP": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
-            "LTT": self.unpack(byte_buffer, position + 4, position + 8),
+            "last_price": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
+            "last_trade_time": epoch_converter(self.unpack(byte_buffer, position + 4, position + 8)),
             "security_id": self.unpack(byte_buffer, position + 8, position + 12),
             "tradable": byte_buffer[position + 12],
             "mode": byte_buffer[position + 13],
@@ -267,7 +268,7 @@ class WebSocketClient(Constants):
         :param position: current position of packet to be processed
         """
         response.append({
-            "LTP": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
+            "last_price": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
             "security_id": self.unpack(byte_buffer, position + 4, position + 8),
             "tradable": byte_buffer[position + 8],
             "mode": byte_buffer[position + 9],
@@ -307,8 +308,8 @@ class WebSocketClient(Constants):
 
         position += 100
 
-        tick["ltp"] = round(self.unpack(byte_buffer, position, position + 4, "f"), 2)
-        tick["last_traded_time"] = self.unpack(byte_buffer, position + 4, position + 8)
+        tick["last_price"] = round(self.unpack(byte_buffer, position, position + 4, "f"), 2)
+        tick["last_trade_time"] = epoch_converter(self.unpack(byte_buffer, position + 4, position + 8))
         tick["security_id"] = self.unpack(byte_buffer, position + 8, position + 12)
         tick["tradable"] = byte_buffer[position + 12]
         tick["mode"] = byte_buffer[position + 13]
@@ -339,7 +340,7 @@ class WebSocketClient(Constants):
         :param position: current position of packet to be processed
         """
         response.append({
-            "LTP": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
+            "last_price": round(self.unpack(byte_buffer, position, position + 4, "f"), 2),
             "security_id": self.unpack(byte_buffer, position + 4, position + 8),
             "tradable": byte_buffer[position + 8],
             "mode": byte_buffer[position + 9],
@@ -349,5 +350,5 @@ class WebSocketClient(Constants):
             "low": round(self.unpack(byte_buffer, position + 22, position + 26, "f"), 2),
             "change_percent": round(self.unpack(byte_buffer, position + 26, position + 30, "f"), 2),
             "change_absolute": round(self.unpack(byte_buffer, position + 30, position + 34, "f"), 2),
-            "last_trade_time": self.unpack(byte_buffer, position + 34, position + 38)
+            "last_update_time": epoch_converter(self.unpack(byte_buffer, position + 34, position + 38))
         })
