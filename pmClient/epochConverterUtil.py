@@ -2,8 +2,10 @@ import datetime
 
 
 def epoch_converter(input_epoch_value):
-    utc = datetime.timezone.utc
-    ninety_eighty = datetime.datetime(1980, 1, 1, tzinfo=utc)
-    time_new = int(ninety_eighty.timestamp())
-    output_epoch_value = input_epoch_value + time_new
+    # Value of ninetyEightyConstant is derived by -
+    # utc = datetime.timezone.utc
+    # ninety_eighty = datetime.datetime(1980, 1, 1, tzinfo=utc)
+    # ninetyEightyConstant = int(ninety_eighty.timestamp())
+    ninetyEightyConstant = 315532800
+    output_epoch_value = input_epoch_value + ninetyEightyConstant
     return output_epoch_value
