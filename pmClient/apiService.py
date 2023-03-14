@@ -27,7 +27,7 @@ class ApiService(Constants):
             elif response.status_code == 401:
                 raise ConnectionError(response.text)
             else:
-                raise requests.HTTPError(response.text, response.status_code)
+                raise httpx.HTTPError(response.text, response.status_code)
         if not url.find('security_master') == -1:
             return response.text
         else:
