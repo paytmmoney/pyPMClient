@@ -454,7 +454,7 @@ class PMClient(ApiService, Constants):
         }
         return ApiService.api_call_helper(self, 'gtt_by_instruction_id', Requests.GET, params, None)
 
-    def get_live_market_data(self, mode_type, prefrences):
+    def get_live_market_data(self, mode_type, preferences):
         """
         Live Market data 
         mode_type: mode of preference
@@ -462,7 +462,7 @@ class PMClient(ApiService, Constants):
         """
         params = {
             'mode_type': mode_type,
-            'preferences': ','.join(prefrences)
+            'preferences': ','.join(preferences)
         }
         response = ApiService.api_call_helper(self, 'live_market_data', Requests.GET, params, None)
 
