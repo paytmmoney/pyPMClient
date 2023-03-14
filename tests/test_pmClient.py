@@ -1,5 +1,4 @@
 import pytest
-import requests
 import sys
 
 sys.path.append('../')
@@ -938,9 +937,7 @@ def test_live_market_data(pm_api):
     with pytest.raises(ConnectionError):
         pm_api.get_live_market_data(
             mode_type="FULL",
-            exchange="NSE",
-            scrip_id=6705,
-            scrip_type="EQUITY"
+            preferences="NSE:13:INDEX"
         )
 
 def test_get_option_chain(pm_api):
