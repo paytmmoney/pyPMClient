@@ -1,4 +1,4 @@
-# The Paytm Money Equity 1.0 API Python client
+# The Paytm Money Equity 1.1.0 API Python client
 
 The official Python client for communicating with [PaytmMoney Equity API](https://www.paytmmoney.com/stocks/).
 
@@ -39,7 +39,7 @@ from pyPMClient import PMClient
 ```python
 # Initialize PMClient using apiKey and apiSecret.
 pm = PMClient(api_secret="your_api_secret", api_key="your_api_key")
-# Initialize PMClient using apiKey, apiSecret & access_token if user has already generated.
+# Initialize PMClient using apiKey, apiSecret & jwt tokens if user has already generated.
 pm = PMClient(api_secret="your_api_secret", api_key="your_api_key", access_token="access_token", public_access_token="public_access_token", read_access_token="read_access_token")
 ```
 
@@ -168,7 +168,7 @@ pm.funds_summary(config)
 ### Scrip Margin
 * Calculate Scrip Margin.
 ```python
-pm.scrip_margin(source, margin_list=[
+pm.scrips_margin(source, margin_list=[
                                  "exchange":"exchange",
                                  "segment":"segment",
                                  "security_id":"security_id",
@@ -199,8 +199,8 @@ pm.user_holdings_data()
 ```
 
 ### Security Master
-* Data will be provided in CSV format.
-* User can filter by file_name
+* User can filter by file_name.
+* To get the supported fileName [API Doc for fileNames](https://developer.paytmmoney.com/docs/api/security-master/)
 ```python
 pm.security_master(file_name)
 ```

@@ -307,6 +307,8 @@ class PMClient(ApiService, Constants):
         Details in a file of all securities
         file_name: File name of the csv file   
         """
+        if not file_name:
+            raise AttributeError("File name should not be null or empty")
         params = {
             'file_name': file_name,
         }
