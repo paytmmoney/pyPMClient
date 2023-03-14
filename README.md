@@ -283,7 +283,7 @@ pm.get_gtt_by_instruction_id(id)
 ### Get Live Price via API
 * To Get Live Price Data via API
 ```python
-pm.get_live_market_data("mode", "exchange", "scripId", "scripType")
+pm.get_live_market_data("mode", "prefrences")
 ```
 
 ### Get Option Chain

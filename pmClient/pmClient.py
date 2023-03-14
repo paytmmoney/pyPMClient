@@ -454,17 +454,15 @@ class PMClient(ApiService, Constants):
         }
         return ApiService.api_call_helper(self, 'gtt_by_instruction_id', Requests.GET, params, None)
 
-    def get_live_market_data(self, mode_type, exchange, scrip_id, scrip_type):
+    def get_live_market_data(self, mode_type, prefrences):
         """
         Live Market data 
         mode_type: mode of preference
-        exchange: Exchange NSE or BSE
-        scrip_id: Security id
-        scrip_type: Scrip type
+        prefrences: exchange:scrip_id:scrip_type
         """
         params = {
             'mode_type': mode_type,
-            'preferences': exchange + ":" + str(scrip_id) + ":" + scrip_type
+            'preferences': ','.join(prefrences)
         }
         response = ApiService.api_call_helper(self, 'live_market_data', Requests.GET, params, None)
 
