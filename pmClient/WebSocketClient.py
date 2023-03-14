@@ -295,12 +295,12 @@ class WebSocketClient(Constants):
         for i in range(5):
             depth = "depth_packet_#" + str(i + 1)
             depth_obj = {
-                "buy_quantity": self.unpack(byte_buffer, 1 + (i * depth_size), 5 + (i * depth_size)),
-                "sell_quantity": self.unpack(byte_buffer, 5 + (i * depth_size), 9 + (i * depth_size)),
-                "buy_order": self.unpack(byte_buffer, 9 + (i * depth_size), 11 + (i * depth_size), "h"),
-                "sell_order": self.unpack(byte_buffer, 11 + (i * depth_size), 13 + (i * depth_size), "h"),
-                "buy_price": round(self.unpack(byte_buffer, 13 + (i * depth_size), 17 + (i * depth_size), "f"), 2),
-                "sell_price": round(self.unpack(byte_buffer, 17 + (i * depth_size), 21 + (i * depth_size), "f"), 2)
+                "buy_quantity": self.unpack(byte_buffer, position + (i * depth_size), position + 4 + (i * depth_size)),
+                "sell_quantity": self.unpack(byte_buffer, position + 4 + (i * depth_size), position + 8 + (i * depth_size)),
+                "buy_order": self.unpack(byte_buffer, position + 8 + (i * depth_size), position + 10 + (i * depth_size), "h"),
+                "sell_order": self.unpack(byte_buffer, position + 10 + (i * depth_size), position + 12 + (i * depth_size), "h"),
+                "buy_price": round(self.unpack(byte_buffer, position + 12 + (i * depth_size), position + 16 + (i * depth_size), "f"), 2),
+                "sell_price": round(self.unpack(byte_buffer, position + 16 + (i * depth_size), position + 20 + (i * depth_size), "f"), 2)
             }
             depth_packet[depth] = depth_obj
 
