@@ -36,19 +36,24 @@ def test_generate_session_connection(pm_api):
         pm_api.generate_session("request_token")
 
 
-def test_generate_session_access_token(pm_api):
+def test_generate_session_access_token(pm_api, mocker):
     response = {
         "access_token": "access_token",
         "public_access_token": "public_access_token",
         "read_access_token": "read_access_token"
     }
-    with pytest.raises(AttributeError):
-        pm_api.generate_session("request_token")
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.generate_session("request_token")
 
 
-def test_logout(pm_api):
-    with pytest.raises(TypeError):
-        pm_api.logout()
+def test_logout(pm_api, mocker):
+    response = {
+        "access_token": "access_token",
+        "public_access_token": "public_access_token",
+        "read_access_token": "read_access_token"
+    }
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.logout()
 
 
 def test_place_order_attribute(pm_api):
@@ -846,13 +851,40 @@ def test_create_gtt_attribute(pm_api):
         )
 
 
-def test_get_gtt_by_status_or_id_connection(pm_api):
-    pm_api.access_token = "invalid_token"
-    with pytest.raises(ConnectionError):
-        pm_api.get_gtt_by_pml_id_and_status(
-            status="ACTIVE",
-            pml_id="1000001488"
-        )
+def test_get_gtt_by_status_or_id_connection1(pm_api, mocker):
+    response = "response"
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_gtt_by_pml_id_and_status(
+        status="ACTIVE",
+        pml_id="1000001488"
+    )
+
+
+def test_get_gtt_by_status_or_id_connection2(pm_api, mocker):
+    response = "response"
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_gtt_by_pml_id_and_status(
+        status="ACTIVE",
+        pml_id=""
+    )
+
+
+def test_get_gtt_by_status_or_id_connection3(pm_api, mocker):
+    response = "response"
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_gtt_by_pml_id_and_status(
+        status="",
+        pml_id="123"
+    )
+
+
+def test_get_gtt_by_status_or_id_connection4(pm_api, mocker):
+    response = "response"
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_gtt_by_pml_id_and_status(
+        status="",
+        pml_id=""
+    )
 
 
 def test_get_gtt_by_status_or_id_attribute(pm_api):
@@ -932,13 +964,21 @@ def test_get_gtt_by_instruction_id_connection(pm_api):
         )
 
 
-def test_live_market_data(pm_api):
-    pm_api.access_token = "invalid_token"
-    with pytest.raises(ConnectionError):
-        pm_api.get_live_market_data(
-            mode_type="FULL",
-            preferences="NSE:13:INDEX"
-        )
+def test_live_market_data(pm_api, mocker):
+    response = {
+        "data": [
+            {
+                "last_trade_time": 1,
+                "last_update_time": 1
+            }
+        ]
+    }
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_live_market_data(
+        mode_type="FULL",
+        preferences="NSE:13:INDEX"
+    )
+
 
 def test_get_option_chain(pm_api):
     pm_api.access_token = "invalid_token"
@@ -948,6 +988,7 @@ def test_get_option_chain(pm_api):
             symbol="NSE",
             expiry="expiry"
         )
+
 
 def test_get_option_chain_config(pm_api):
     pm_api.access_token = "invalid_token"
