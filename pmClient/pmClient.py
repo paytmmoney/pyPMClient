@@ -1,12 +1,14 @@
+import json
 from pdb import pm
 from .apiService import ApiService
 from .constants import Constants
 from .enums import OrderType, Requests, ProductType
+from .epochConverterUtil import epoch_converter
 
 
 class PMClient(ApiService, Constants):
 
-    def __init__(self, api_secret, api_key, access_token=None, public_access_token=None,read_access_token=None):
+    def __init__(self, api_secret, api_key, access_token=None, public_access_token=None, read_access_token=None):
         if api_key is not None:
             self._api_key = api_key
         else:
@@ -36,7 +38,7 @@ class PMClient(ApiService, Constants):
         return self.public_access_token
 
     def set_read_access_token(self, read_access_token):
-        """Set and initialize read access token"""        
+        """Set and initialize read access token"""
         self.read_access_token = read_access_token
         ApiService.__init__(self)
         Constants.__init__(self)
@@ -53,7 +55,7 @@ class PMClient(ApiService, Constants):
     def generate_session(self, request_token=None):
         """Generate session and get the tokens"""
         if request_token is not None:
-            request_body = {'api_key':self._api_key,'api_secret_key':self.api_secret,'request_token':request_token}
+            request_body = {'api_key': self._api_key, 'api_secret_key': self.api_secret, 'request_token': request_token}
         else:
             raise TypeError("Request Token cannot be null or empty")
         response = ApiService.api_call_helper(self, "access_token", Requests.POST, None, request_body)
@@ -454,20 +456,27 @@ class PMClient(ApiService, Constants):
         }
         return ApiService.api_call_helper(self, 'gtt_by_instruction_id', Requests.GET, params, None)
 
-    def get_live_market_data(self, mode_type, exchange, scrip_id, scrip_type):
+    def get_live_market_data(self, mode_type, preferences):
         """
         Live Market data 
         mode_type: mode of preference
-        exchange: Exchange NSE or BSE
-        scrip_id: Security id
-        scrip_type: Scrip type
+        prefrences: exchange:scrip_id:scrip_type
         """
         params = {
             'mode_type': mode_type,
-            'preferences': exchange+":"+str(scrip_id)+":"+scrip_type
+            'preferences': ','.join(preferences)
         }
-        return ApiService.api_call_helper(self, 'live_market_data', Requests.GET, params, None)
-        
+        response = ApiService.api_call_helper(self, 'live_market_data', Requests.GET, params, None)
+
+        if response.get("data") is not None:
+            for tick in response["data"]:
+                if tick.get("last_trade_time") is not None:
+                    tick["last_trade_time"] = epoch_converter(tick["last_trade_time"])
+                if tick.get("last_update_time") is not None:
+                    tick["last_update_time"] = epoch_converter(tick["last_update_time"])
+
+        return response
+
     def get_option_chain(self, type, symbol, expiry):
         """
         Option Chain
@@ -478,7 +487,7 @@ class PMClient(ApiService, Constants):
         params = {
             'type': type,
             'symbol': symbol,
-            'expiry':expiry
+            'expiry': expiry
         }
         return ApiService.api_call_helper(self, 'option_chain', Requests.GET, params, None)
 

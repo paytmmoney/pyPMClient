@@ -1,4 +1,4 @@
-# The Paytm Money Equity 1.1.0 API Python client
+# The Paytm Money Equity 1.1.1 API Python client
 
 The official Python client for communicating with [PaytmMoney Equity API](https://www.paytmmoney.com/stocks/).
 
@@ -283,7 +283,7 @@ pm.get_gtt_by_instruction_id(id)
 ### Get Live Price via API
 * To Get Live Price Data via API
 ```python
-pm.get_live_market_data("mode", "exchange", "scripId", "scripType")
+pm.get_live_market_data("mode", preferences)
 ```
 
 ### Get Option Chain
