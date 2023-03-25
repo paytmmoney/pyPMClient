@@ -1,8 +1,7 @@
-import requests
+import httpx
 import json
 from .enums import Requests
 from .constants import Constants
-
 
 class ApiService(Constants):
     def __init__(self):
@@ -28,7 +27,7 @@ class ApiService(Constants):
             elif response.status_code == 401:
                 raise ConnectionError(response.text)
             else:
-                raise requests.HTTPError(response.text, response.status_code)
+                raise httpx.HTTPError(response.text, response.status_code)
         if not url.find('security_master') == -1:
             return response.text
         else:
@@ -41,13 +40,13 @@ class ApiService(Constants):
             headers['x-jwt-token'] = jwt_token
         r = None
         if http_method is Requests.POST:
-            r = requests.post(url, data=json.dumps(data), headers=headers)
+            r = httpx.post(url, data=json.dumps(data), headers=headers)
         elif http_method is Requests.DELETE:
-            r = requests.delete(url, headers=headers)
+            r = httpx.delete(url,headers=headers)
         elif http_method is Requests.PUT:
-            r = requests.put(url, data=json.dumps(data), headers=headers)
+            r = httpx.put(url, data=json.dumps(data), headers=headers)
         elif http_method is Requests.GET:
-            r = requests.get(url, data=json.dumps(data), headers=headers)
+            r = httpx.get(url,headers=headers)
         return r
 
     def validate_token(self, config, name):
