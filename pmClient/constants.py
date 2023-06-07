@@ -28,6 +28,7 @@ class Constants:
 
                 # order-book, trade details endpoints
                 'order_book': ['/orders/v1/order-book',{'access_token','read_access_token'}],
+                'orders': ['/orders/v1/user/orders',{'access_token','read_access_token'}],
                 'trade_details': ['/orders/v1/trade-details?order_no={order_no}&leg_no={leg_no}&segment={segment}',{'access_token','read_access_token'}],
                 
                 # positions and holdings endpoints

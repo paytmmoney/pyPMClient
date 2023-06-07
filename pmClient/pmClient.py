@@ -241,6 +241,9 @@ class PMClient(ApiService, Constants):
     # Order & Trade Book
     def order_book(self):
         return ApiService.api_call_helper(self, 'order_book', Requests.GET, None, None)
+    
+    def orders(self):
+        return ApiService.api_call_helper(self, 'orders', Requests.GET, None, None)
 
     def trade_details(self, order_no, leg_no, segment):
         """
