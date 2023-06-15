@@ -610,6 +610,11 @@ def test_order_book_connection(pm_api):
     with pytest.raises(ConnectionError):
         pm_api.order_book()
 
+def test_orders_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.orders()
+
 
 def test_trade_details_connection(pm_api):
     pm_api.access_token = "invalid_token"
