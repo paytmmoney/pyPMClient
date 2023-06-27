@@ -97,11 +97,12 @@ class WebSocketClient(Constants):
 
         :param ws: websocket object
         """
+        # after reconnect attempts, if connection is made again, we reset reconnect_count and reconnect_delay
+        self.reset_reconnect_params()
+
         if self.on_open_listener:
             self.on_open_listener()
 
-        # after reconnect attempts, if connection is made again, we reset reconnect_count and reconnect_delay
-        self.reset_reconnect_params()
 
     def on_message(self, ws, payload):
         """
