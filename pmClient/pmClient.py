@@ -503,3 +503,27 @@ class PMClient(ApiService, Constants):
             'symbol': symbol
         }
         return ApiService.api_call_helper(self, 'option_chain_config', Requests.GET, params, None)
+
+    def charges_info(self, brokerage_profile_code,transaction_type,product_type,instrument_type,exchange,qty,price):
+        """
+        Brokrage Charges Info 
+        brokerage_profile_code: Customer subscription plan ("D00-I10-F10" / "D15-I15-F15")
+        transaction_type: Transaction Type 	"B" | "S" (Buy/Sell)
+        product_type: "FUTIDX" | "FUTSTK" | "OPTSTK" | "OPTIDX" | "ES" | "ETF" | "REIT" | "InvITU" | "CB" | "DEB" | "DBT"  | "GB"
+        instrument_type:  "I" | "B" | "V" | "C" | "M" 
+        exchange: "NSE" | "BSE"
+        qty: Quantity of stocks to be traded
+        price: Price at which order is to be placed
+        """
+
+        request_body = {
+            "brokerage_profile_code": brokerage_profile_code,
+            "transaction_type": transaction_type, 
+            "product_type": product_type,
+            "instrument_type": instrument_type,
+            "exchange": exchange,
+            "qty": qty,
+            "price": price
+        }
+
+        return ApiService.api_call_helper(self, 'charges_info', Requests.POST, None, request_body)

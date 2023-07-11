@@ -37,6 +37,8 @@ class Constants:
                 'funds_summary': ['/accounts/v1/funds/summary?config={config}',{'access_token','read_access_token'}],
                 'holdings_value': ['/holdings/v1/get-holdings-value',{'access_token','read_access_token'}],
                 'user_holdings_data': ['/holdings/v1/get-user-holdings-data',{'access_token','read_access_token'}],
+                'charges_info': ['/accounts/v1/charges/info',{'access_token'}],
+
                 
                 # security master endpoints
                 'security_master': ['/data/v1/scrips/{file_name}',{}],
