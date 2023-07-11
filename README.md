@@ -304,6 +304,12 @@ pm.get_option_chain_config("symbol")
 pm.orders()
 ```
 
+### Brokerage, Statutory & Regulatory Levies
+* Get Charges Info
+```python
+pm.charges_info("brokerageProfileCode", "transactionType", "instrumentType", "productType", "exchange", qty, price)
+```
+
 ### WebSocket Usage
 * To use websocket client in your project, add below code in a python file -
 ```python
