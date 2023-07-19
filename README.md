@@ -307,7 +307,7 @@ pm.orders()
 ### Brokerage, Statutory & Regulatory Levies
 * Get Charges Info
 ```python
-pm.charges_info("brokerageProfileCode", "transactionType", "instrumentType", "productType", "exchange", qty, price)
+pm.charges_info("brokerage_profile_code", "transaction_type", "product_type", "instrument_type", "exchange", qty, price)
 ```
 
 ### WebSocket Usage
