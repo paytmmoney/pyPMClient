@@ -5,7 +5,8 @@
 """
 import json
 import struct
-import rel
+import time
+import re
 import websocket
 from .constants import Constants
 from .epochConverterUtil import epoch_converter
@@ -28,6 +29,11 @@ class WebSocketClient(Constants):
         self.on_message_listener = None
         self.ws = None
         self.create_url(public_access_token)
+        self.do_reconnect = False
+        self.max_reconnect_attempt = 5
+        self.reconnect_delay = 2
+        self.reconnect_count = 0
+        self.error_code = None
 
     def create_url(self, public_access_token):
         """
@@ -75,14 +81,28 @@ class WebSocketClient(Constants):
         """
         self.on_error_listener = listener
 
+    def set_reconnect_config(self, do_reconnect, max_reconnect_attempt):
+        """
+        set do_reconnect and max_reconnect_attempt params required for reconnect feature
+
+        :param do_reconnect: boolean value determining whether reconnect feature is enabled or not.
+        :param max_reconnect_attempt: the no. of retries made to server to create connection
+        """
+        self.do_reconnect = do_reconnect
+        self.max_reconnect_attempt = max_reconnect_attempt
+
     def on_open(self, ws):
         """
         Called when WebSocket connection gets established
 
         :param ws: websocket object
         """
+        # after reconnect attempts, if connection is made again, we reset reconnect_count and reconnect_delay
+        self.reset_reconnect_params()
+
         if self.on_open_listener:
             self.on_open_listener()
+
 
     def on_message(self, ws, payload):
         """
@@ -109,6 +129,16 @@ class WebSocketClient(Constants):
         if self.on_close_listener:
             self.on_close_listener(code, reason)
 
+        """
+        we reconnect if - 
+            reconnect_feature is opted 
+            and close code is not normal closure 
+            and either error code is None or 5xx or connection refused
+        """
+        if self.do_reconnect and code != 1000 and (self.error_code is None or 500 <= self.error_code < 600 or self.error_code == 61):
+            self.reconnect()
+        self.error_code = None
+
     def on_error(self, ws, err):
         """
         Called when error occurs in websocket connection
@@ -119,6 +149,11 @@ class WebSocketClient(Constants):
         if self.on_error_listener:
             self.on_error_listener(err)
 
+        # to extract error code from error message
+        match = re.search(r'\d+', str(err))
+        error_code = int(match.group()) if match else None
+        self.error_code = error_code if error_code else None
+
     def connect(self):
         """Create a websocket connection with Broadcast server"""
         try:
@@ -128,14 +163,31 @@ class WebSocketClient(Constants):
                                              on_error=self.on_error,
                                              on_close=self.on_close
                                              )
-            # self.ws.run_forever(dispatcher=rel, reconnect=5)  # Set dispatcher to automatic reconnection, 5 second
-            # reconnect delay if connection closed unexpectedly
-            self.ws.run_forever(dispatcher=rel)
-            rel.signal(2, rel.abort)  # Keyboard Interrupt
-            rel.dispatch()
+            self.ws.run_forever()
         except Exception as err:
             if self.on_error_listener:
                 self.on_error_listener(err)
+
+    def reconnect(self):
+        """This method tries to reconnect to server for maxReconnectAttempt times."""
+        time.sleep(self.reconnect_delay)
+        self.reconnect_delay *= 2
+        self.reconnect_count += 1
+        if self.reconnect_count <= self.max_reconnect_attempt:
+            self.ws.run_forever()
+        if self.reconnect_count > self.max_reconnect_attempt:
+            self.reset_reconnect_params()
+
+    def reset_reconnect_params(self):
+        """This method resets reconnect_count and reconnect_delay to initial value"""
+        self.reconnect_count = 0
+        self.reconnect_delay = 2
+
+    def disconnect(self):
+        """This method is used to explicitly close websocket connection with the server"""
+        if self.ws:
+            self.ws.close()
+            self.on_close(self.ws, 1000, "NORMAL_CLOSURE")
 
     def subscribe(self, preferences):
         """
@@ -296,11 +348,18 @@ class WebSocketClient(Constants):
             depth = "depth_packet_#" + str(i + 1)
             depth_obj = {
                 "buy_quantity": self.unpack(byte_buffer, position + (i * depth_size), position + 4 + (i * depth_size)),
-                "sell_quantity": self.unpack(byte_buffer, position + 4 + (i * depth_size), position + 8 + (i * depth_size)),
-                "buy_order": self.unpack(byte_buffer, position + 8 + (i * depth_size), position + 10 + (i * depth_size), "h"),
-                "sell_order": self.unpack(byte_buffer, position + 10 + (i * depth_size), position + 12 + (i * depth_size), "h"),
-                "buy_price": round(self.unpack(byte_buffer, position + 12 + (i * depth_size), position + 16 + (i * depth_size), "f"), 2),
-                "sell_price": round(self.unpack(byte_buffer, position + 16 + (i * depth_size), position + 20 + (i * depth_size), "f"), 2)
+                "sell_quantity": self.unpack(byte_buffer, position + 4 + (i * depth_size),
+                                             position + 8 + (i * depth_size)),
+                "buy_order": self.unpack(byte_buffer, position + 8 + (i * depth_size), position + 10 + (i * depth_size),
+                                         "h"),
+                "sell_order": self.unpack(byte_buffer, position + 10 + (i * depth_size),
+                                          position + 12 + (i * depth_size), "h"),
+                "buy_price": round(
+                    self.unpack(byte_buffer, position + 12 + (i * depth_size), position + 16 + (i * depth_size), "f"),
+                    2),
+                "sell_price": round(
+                    self.unpack(byte_buffer, position + 16 + (i * depth_size), position + 20 + (i * depth_size), "f"),
+                    2)
             }
             depth_packet[depth] = depth_obj
 
