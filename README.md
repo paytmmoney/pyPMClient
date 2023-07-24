@@ -1,4 +1,4 @@
-# The Paytm Money Equity 1.1.1 API Python client
+# The Paytm Money Equity 1.1.2 API Python client
 
 The official Python client for communicating with [PaytmMoney Equity API](https://www.paytmmoney.com/stocks/).
 
@@ -298,6 +298,18 @@ pm.get_option_chain("type", "symbol", "expiry")
 pm.get_option_chain_config("symbol")
 ```
 
+### Get All Orders
+* Get all orders without apiKey filter
+```python
+pm.orders()
+```
+
+### Brokerage, Statutory & Regulatory Levies
+* Get Charges Info
+```python
+pm.charges_info("brokerage_profile_code", "transaction_type", "product_type", "instrument_type", "exchange", qty, price)
+```
+
 ### WebSocket Usage
 * To use websocket client in your project, add below code in a python file -
 ```python
@@ -345,6 +357,15 @@ webSocketClient.set_on_close_listener(on_close)
 webSocketClient.set_on_error_listener(on_error)
 webSocketClient.set_on_message_listener(on_message)
 
+"""
+set below reconnect config if reconnect feature is desired
+Set first param as true and second param, the no. of times retry to connect to server shall be made  
+"""
+webSocketClient.set_reconnect_config(True, 5)
+
 # this method is called to create a websocket connection with broadcast server
 webSocketClient.connect()
+
+# To explicitly close websocket connection with server, call this method
+webSocketClient.disconnect()
 ```
