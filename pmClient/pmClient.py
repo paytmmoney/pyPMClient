@@ -518,14 +518,14 @@ class PMClient(ApiService, Constants):
         }
         return ApiService.api_call_helper(self, 'gtt_by_id_v2', Requests.PUT, params, request_body)
 
-    def get_gtt_by_instruction_id(self, id):
+    def get_gtt_by_instruction_id_v2(self, id):
         """Get GTT order by Instruction Id"""
         params = {
             'id': id
         }
         return ApiService.api_call_helper(self, 'gtt_by_instruction_id_v2', Requests.GET, params, None)
 
-    def get_gtt_by_pml_id_and_status(self, status=None, pml_id=None):
+    def get_gtt_by_pml_id_and_status_v2(self, status=None, pml_id=None):
         """Get all gtt for the account or filter by status and pml_id"""
         if status is not None and status != "" and pml_id is not None and pml_id != "":
             params = {
