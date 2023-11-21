@@ -65,6 +65,14 @@ class Constants:
                 'expiry_gtt': ['/gtt/v1/gtt/expiry-date?pml-id={pml_id}',{'access_token','read_access_token'}],
                 'gtt_by_instruction_id': ['/gtt/v1/gtt/instructions/{id}',{'access_token','read_access_token'}],
 
+                # gtt endpoints v2
+                'get_gtt_by_status_v2': ['/gtt/v2/gtt?status={status}',{'access_token'}],
+                'get_gtt_by_pml_id_v2': ['/gtt/v2/gtt?pml-id={pml_id}',{'access_token'}],
+                'get_gtt_by_pml_id_and_status_v2': ['/gtt/v2/gtt?status={status}&pml-id={pml_id}',{'access_token'}],
+                'gtt_v2': ['/gtt/v2/gtt',{'access_token'}],
+                'gtt_by_id_v2': ['/gtt/v2/gtt/{id}',{'access_token'}],
+                'gtt_by_instruction_id_v2': ['/gtt/v2/gtt/instructions/{id}',{'access_token','read_access_token'}],
+
                 # live market data endpoints
                 'live_market_data': ['/data/v1/price/live?mode={mode_type}&pref={preferences}',{'access_token','read_access_token'}],
 
