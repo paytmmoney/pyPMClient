@@ -56,14 +56,15 @@ class Constants:
                 'price_chart_sym': ['/data/v1/price-charts/sym',{'access_token','read_access_token'}],
                 
                 # gtt endpoints
-                'get_gtt_by_status': ['/gtt/v1/gtt?status={status}',{'access_token'}],
-                'get_gtt_by_pml_id': ['/gtt/v1/gtt?pml-id={pml_id}',{'access_token'}],
-                'get_gtt_by_pml_id_and_status': ['/gtt/v1/gtt?status={status}&pml-id={pml_id}',{'access_token'}],
-                'gtt': ['/gtt/v1/gtt',{'access_token'}],
+                'get_gtt_by_status': ['/gtt/v2/gtt?status={status}',{'access_token'}],
+                'get_gtt_by_pml_id': ['/gtt/v2/gtt?pml-id={pml_id}',{'access_token'}],
+                'get_gtt_by_pml_id_and_status': ['/gtt/v2/gtt?status={status}&pml-id={pml_id}',{'access_token'}],
+                'gtt': ['/gtt/v2/gtt',{'access_token'}],
                 'gtt_by_id': ['/gtt/v1/gtt/{id}',{'access_token'}],
+                'gtt_by_id_v2': ['/gtt/v2/gtt/{id}',{'access_token'}],
                 'gtt_aggregate': ['/gtt/v1/gtt/aggregate',{'access_token','read_access_token'}],
                 'expiry_gtt': ['/gtt/v1/gtt/expiry-date?pml-id={pml_id}',{'access_token','read_access_token'}],
-                'gtt_by_instruction_id': ['/gtt/v1/gtt/instructions/{id}',{'access_token','read_access_token'}],
+                'gtt_by_instruction_id': ['/gtt/v2/gtt/instructions/{id}',{'access_token','read_access_token'}],
 
                 # gtt endpoints v2
                 'get_gtt_by_status_v2': ['/gtt/v2/gtt?status={status}',{'access_token'}],

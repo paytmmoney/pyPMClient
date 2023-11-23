@@ -35,7 +35,8 @@ class ApiService(Constants):
 
     def _api_call(self, url, http_method, jwt_token, data):
         """Checks for the API Method and that call is done and returned"""
-        headers = {'Content-Type': "application/json"}
+        headers = {'Content-Type' : "application/json",
+                   'openapi-client-src' : "sdk"}
         if jwt_token is not None:
             headers['x-jwt-token'] = jwt_token
         r = None

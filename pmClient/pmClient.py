@@ -407,7 +407,7 @@ class PMClient(ApiService, Constants):
         params = {
             'id': id
         }
-        return ApiService.api_call_helper(self, 'gtt_by_id', Requests.GET, params, None)
+        return ApiService.api_call_helper(self, 'gtt_by_id_v2', Requests.GET, params, None)
 
     def update_gtt(self, id, quantity, trigger_price, limit_price, set_price, transaction_type, order_type,
                    trigger_type):
@@ -432,7 +432,7 @@ class PMClient(ApiService, Constants):
             'trigger_type': trigger_type,
             'transaction_details': transaction_details
         }
-        return ApiService.api_call_helper(self, 'gtt_by_id', Requests.PUT, params, request_body)
+        return ApiService.api_call_helper(self, 'gtt_by_id_v2', Requests.PUT, params, request_body)
 
     def delete_gtt(self, id):
         """Delete GTT order"""
@@ -458,93 +458,6 @@ class PMClient(ApiService, Constants):
             'id': id
         }
         return ApiService.api_call_helper(self, 'gtt_by_instruction_id', Requests.GET, params, None)
-
-    def create_gtt_v2(self, segment, exchange, pml_id, security_id, product_type, set_price, transaction_type,
-                   order_type, trigger_type, quantity, trigger_price, limit_price):
-        """Create a GTT Order"""
-        transaction_details = []
-
-        transaction_details_obj = {
-            'quantity': quantity,
-            'trigger_price': trigger_price,
-            'limit_price': limit_price
-        }
-        transaction_details.append(transaction_details_obj)
-
-        request_body = {
-            'segment': segment,
-            'exchange': exchange,
-            'pml-id': pml_id,
-            'security_id': security_id,
-            'product_type': product_type,
-            'set_price': set_price,
-            'transaction_type': transaction_type,
-            'order_type': order_type,
-            'trigger_type': trigger_type,
-            'transaction_details': transaction_details
-        }
-
-        return ApiService.api_call_helper(self, 'gtt_v2', Requests.POST, None, request_body)
-
-    def get_gtt_v2(self, id):
-        """Get GTT order by id"""
-        params = {
-            'id': id
-        }
-        return ApiService.api_call_helper(self, 'gtt_by_id_v2', Requests.GET, params, None)
-
-    def update_gtt_v2(self, id, quantity, trigger_price, limit_price, set_price, transaction_type, order_type,
-                   trigger_type):
-        """Update GTT order"""
-        params = {
-            'id': id
-        }
-
-        transaction_details = []
-
-        transaction_details_obj = {
-            'quantity': quantity,
-            'trigger_price': trigger_price,
-            'limit_price': limit_price
-        }
-        transaction_details.append(transaction_details_obj)
-
-        request_body = {
-            'set_price': set_price,
-            'transaction_type': transaction_type,
-            'order_type': order_type,
-            'trigger_type': trigger_type,
-            'transaction_details': transaction_details
-        }
-        return ApiService.api_call_helper(self, 'gtt_by_id_v2', Requests.PUT, params, request_body)
-
-    def get_gtt_by_instruction_id_v2(self, id):
-        """Get GTT order by Instruction Id"""
-        params = {
-            'id': id
-        }
-        return ApiService.api_call_helper(self, 'gtt_by_instruction_id_v2', Requests.GET, params, None)
-
-    def get_gtt_by_pml_id_and_status_v2(self, status=None, pml_id=None):
-        """Get all gtt for the account or filter by status and pml_id"""
-        if status is not None and status != "" and pml_id is not None and pml_id != "":
-            params = {
-                'status': status,
-                'pml_id': pml_id
-            }
-            return ApiService.api_call_helper(self, 'get_gtt_by_pml_id_and_status_v2', Requests.GET, params, None)
-        elif (status is not None and status != "") and (pml_id is None or pml_id == ""):
-            params = {
-                'status': status,
-            }
-            return ApiService.api_call_helper(self, 'get_gtt_by_status_v2', Requests.GET, params, None)
-        elif (status is None or status == "") and (pml_id is not None and pml_id != ""):
-            params = {
-                'pml_id': pml_id,
-            }
-            return ApiService.api_call_helper(self, 'get_gtt_by_pml_id_v2', Requests.GET, params, None)
-        else:
-            return ApiService.api_call_helper(self, 'gtt_v2', Requests.GET, None, None)
 
     def get_live_market_data(self, mode_type, preferences):
         """
