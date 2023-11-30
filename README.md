@@ -234,8 +234,61 @@ pm.logout()
 
 ### Create GTT
 * To create a GTT order.
+* Note 1 : pml_id in can be null.
+* Note 2 : transaction_details is a list of dictionary(key-value pair).
+* Refer below sample requestBody 
 ```python
-pm.create_gtt(segment, exchange, pml_id, security_id, product_type, set_price, transaction_type, order_type, trigger_type, quantity, trigger_price, limit_price)
+pm.create_gtt(segment, exchange, security_id, product_type, set_price, transaction_type, trigger_type, transaction_details, pml_id)
+```
+```python
+# Sample requestBody for OCO trigger_type
+pm.create_gtt(
+        segment = "E",
+        exchange = "BSE",
+        pml_id = "1000002445",  # not required
+        security_id = 500570,
+        product_type = "C",
+        set_price = "702.65",
+        transaction_type = "S",
+        trigger_type = "OCO",
+        transaction_details = [
+            {
+                "sub_type": "STOPLOSS",
+                "trigger_price": "695.60",
+                "order_type": "MKT",
+                "limit_price": 0,
+                "quantity": 1
+            },
+            {
+                "sub_type": "TARGET",
+                "trigger_price": "709.70",
+                "order_type": "MKT",
+                "limit_price": 0,
+                "quantity": 1
+            }
+        ]   
+    )
+```
+```python
+# Sample requestBody for SINGLE trigger_type
+pm.create_gtt(
+    segment = "E",
+    exchange = "BSE",
+    pml_id = "1000002445", // not required
+    security_id = 500570,
+    product_type = "C",
+    set_price = "709.35",
+    transaction_type = "B",
+    trigger_type = "SINGLE",
+    transaction_details = [
+        {
+            "trigger_price": "702.25",
+            "order_type": "MKT",
+            "limit_price": 0,
+            "quantity": 1
+        }
+    ]
+)
 ```
 
 ### Get All GTT
@@ -252,8 +305,36 @@ pm.get_gtt(id)
 
 ### Update GTT
 * To update GTT by Id.
+* Note : transaction_details is a list of dictionary(key-value pair).
+* Refer below sample requestBody 
 ```python
-pm.update_gtt(id, quantity, trigger_price, limit_price, set_price, transaction_type, order_type, trigger_type)
+pm.update_gtt(id, set_price, transaction_type, trigger_type, transaction_details)
+```
+```python
+pm.update_gtt(
+    id=217,
+    set_price = "8.40",
+    transaction_type = "S",
+    trigger_type = "OCO",
+    transaction_details = [
+        {
+            "id": 218,               #For OCO only
+            "sub_type": "STOPLOSS",  #For OCO only
+            "quantity": "2",
+            "trigger_price": "9.0",
+            "limit_price": "15.0",
+            "order_type": "LMT"    
+        },
+        {
+            "id": 219,                #For OCO only
+            "sub_type": "TARGET",   #For OCO only
+            "quantity": "2",
+            "trigger_price": "15.0",
+            "limit_price": "20",
+            "order_type": "LMT"   
+        }
+    ]
+)
 ```
 
 ### Delete GTT

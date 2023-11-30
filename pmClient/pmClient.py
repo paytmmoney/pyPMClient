@@ -375,18 +375,10 @@ class PMClient(ApiService, Constants):
         else:
             return ApiService.api_call_helper(self, 'gtt', Requests.GET, None, None)
 
-    def create_gtt(self, segment, exchange, pml_id, security_id, product_type, set_price, transaction_type,
-                   order_type, trigger_type, quantity, trigger_price, limit_price):
+    def create_gtt(self, segment, exchange, security_id, product_type, set_price, transaction_type,
+                   trigger_type, transaction_details, pml_id=None):
         """Create a GTT Order"""
-        transaction_details = []
-
-        transaction_details_obj = {
-            'quantity': quantity,
-            'trigger_price': trigger_price,
-            'limit_price': limit_price
-        }
-        transaction_details.append(transaction_details_obj)
-
+        
         request_body = {
             'segment': segment,
             'exchange': exchange,
@@ -395,7 +387,6 @@ class PMClient(ApiService, Constants):
             'product_type': product_type,
             'set_price': set_price,
             'transaction_type': transaction_type,
-            'order_type': order_type,
             'trigger_type': trigger_type,
             'transaction_details': transaction_details
         }
@@ -409,26 +400,15 @@ class PMClient(ApiService, Constants):
         }
         return ApiService.api_call_helper(self, 'gtt_by_id_v2', Requests.GET, params, None)
 
-    def update_gtt(self, id, quantity, trigger_price, limit_price, set_price, transaction_type, order_type,
-                   trigger_type):
+    def update_gtt(self, id, set_price, transaction_type, trigger_type, transaction_details):
         """Update GTT order"""
         params = {
             'id': id
         }
 
-        transaction_details = []
-
-        transaction_details_obj = {
-            'quantity': quantity,
-            'trigger_price': trigger_price,
-            'limit_price': limit_price
-        }
-        transaction_details.append(transaction_details_obj)
-
         request_body = {
             'set_price': set_price,
             'transaction_type': transaction_type,
-            'order_type': order_type,
             'trigger_type': trigger_type,
             'transaction_details': transaction_details
         }
