@@ -234,6 +234,54 @@ pm.logout()
 
 ### Create GTT
 * To create a GTT order.
+```python
+pm.create_gtt(segment, exchange, pml_id, security_id, product_type, set_price, transaction_type, order_type, trigger_type, quantity, trigger_price, limit_price)
+```
+
+### Get All GTT
+* To get all GTT or get by pml_id or status.
+```python
+pm.get_gtt_by_pml_id_and_status(status, pml_id)
+```
+
+### Get GTT
+* To get GTT by Id.
+```python
+pm.get_gtt(id)
+```
+
+### Update GTT
+* To update GTT by Id.
+```python
+pm.update_gtt(id, quantity, trigger_price, limit_price, set_price, transaction_type, order_type, trigger_type)
+```
+
+### Delete GTT
+* To Delete GTT by Id.
+```python
+pm.delete_gtt(id)
+```
+
+### Get Expiry
+* To get expiry of the GTT.
+```python
+pm.get_gtt_expiry_date(pml_id)
+```
+
+### Get Aggregate
+* To get the aggregate of the GTTs.
+```python
+pm.get_gtt_aggregate()
+```
+
+### Get GTT InstructionId
+* To GTT by InstructionId.
+```python
+pm.get_gtt_by_instruction_id(id)
+```
+
+### Create GTT V2
+* To create a GTT order.
 * Note 1 : pml_id in can be null.
 * Note 2 : transaction_details is a list of dictionary(key-value pair).
 * Refer below sample requestBody 
@@ -242,7 +290,7 @@ pm.create_gtt(segment, exchange, security_id, product_type, set_price, transacti
 ```
 ```python
 # Sample requestBody for OCO trigger_type
-pm.create_gtt(
+pm.create_gtt_v2(
         segment = "E",
         exchange = "BSE",
         pml_id = "1000002445",  # not required
@@ -271,7 +319,7 @@ pm.create_gtt(
 ```
 ```python
 # Sample requestBody for SINGLE trigger_type
-pm.create_gtt(
+pm.create_gtt_v2(
     segment = "E",
     exchange = "BSE",
     pml_id = "1000002445", // not required
@@ -291,27 +339,27 @@ pm.create_gtt(
 )
 ```
 
-### Get All GTT
+### Get All GTT V2
 * To get all GTT or get by pml_id or status.
 ```python
-pm.get_gtt_by_pml_id_and_status(status, pml_id)
+pm.get_gtt_by_pml_id_and_status_v2(status, pml_id)
 ```
 
-### Get GTT
+### Get GTT V2
 * To get GTT by Id.
 ```python
-pm.get_gtt(id)
+pm.get_gtt_v2(id)
 ```
 
-### Update GTT
+### Update GTT V2
 * To update GTT by Id.
 * Note : transaction_details is a list of dictionary(key-value pair).
 * Refer below sample requestBody 
 ```python
-pm.update_gtt(id, set_price, transaction_type, trigger_type, transaction_details)
+pm.update_gtt_v2(id, set_price, transaction_type, trigger_type, transaction_details)
 ```
 ```python
-pm.update_gtt(
+pm.update_gtt_v2(
     id=217,
     set_price = "8.40",
     transaction_type = "S",
@@ -337,28 +385,10 @@ pm.update_gtt(
 )
 ```
 
-### Delete GTT
-* To Delete GTT by Id.
-```python
-pm.delete_gtt(id)
-```
-
-### Get Expiry
-* To get expiry of the GTT.
-```python
-pm.get_gtt_expiry_date(pml_id)
-```
-
-### Get Aggregate
-* To get the aggregate of the GTTs.
-```python
-pm.get_gtt_aggregate()
-```
-
-### Get GTT InstructionId
+### Get GTT InstructionId V2
 * To GTT by InstructionId.
 ```python
-pm.get_gtt_by_instruction_id(id)
+pm.get_gtt_by_instruction_id_v2(id)
 ```
 
 ### Get Live Price via API
