@@ -282,18 +282,16 @@ pm.get_gtt_by_instruction_id(id)
 
 ### Create GTT V2
 * To create a GTT order.
-* Note 1 : pml_id in can be null.
-* Note 2 : transaction_details is a list of dictionary(key-value pair).
+* Note : transaction_details is a list of dictionary(key-value pair).
 * Refer below sample requestBody 
 ```python
-pm.create_gtt(segment, exchange, security_id, product_type, set_price, transaction_type, trigger_type, transaction_details, pml_id)
+pm.create_gtt(segment, exchange, security_id, product_type, set_price, transaction_type, trigger_type, transaction_details)
 ```
 ```python
 # Sample requestBody for OCO trigger_type
 pm.create_gtt_v2(
         segment = "E",
         exchange = "BSE",
-        pml_id = "1000002445",  # not required
         security_id = 500570,
         product_type = "C",
         set_price = "702.65",
@@ -322,7 +320,6 @@ pm.create_gtt_v2(
 pm.create_gtt_v2(
     segment = "E",
     exchange = "BSE",
-    pml_id = "1000002445", // not required
     security_id = 500570,
     product_type = "C",
     set_price = "709.35",
