@@ -481,13 +481,12 @@ class PMClient(ApiService, Constants):
             return ApiService.api_call_helper(self, 'gtt_v2', Requests.GET, None, None)
     
     def create_gtt_v2(self, segment, exchange, security_id, product_type, set_price, transaction_type,
-                   trigger_type, transaction_details, pml_id=None):
+                   trigger_type, transaction_details):
         """Create a GTT Order"""
         
         request_body = {
             'segment': segment,
             'exchange': exchange,
-            'pml-id': pml_id,
             'security_id': security_id,
             'product_type': product_type,
             'set_price': set_price,
