@@ -978,6 +978,7 @@ def test_create_gtt_v2_connection(pm_api):
             product_type="C",
             set_price=12.80,
             transaction_type="S",
+            trigger_type="SINGLE",
             transaction_details=""
         )
 
@@ -992,6 +993,7 @@ def test_create_gtt_v2_attribute(pm_api):
             product_type="C",
             set_price=12.80,
             transaction_type="S",
+            trigger_type="SINGLE",
             transaction_details=""
         )
 
@@ -1046,9 +1048,6 @@ def test_update_gtt_v2_connection(pm_api):
             id=987,
             set_price=12.80,
             transaction_type="S",
-            quantity=3,
-            trigger_price=12.7,
-            limit_price=0,
             trigger_type="SINGLE",
             transaction_details=""
         )
@@ -1061,9 +1060,6 @@ def test_update_gtt_v2_attribute(pm_api):
             id=987,
             set_price=12.80,
             transaction_type=5,
-            quantity=3,
-            trigger_price=12.7,
-            limit_price=0,
             trigger_type="SINGLE",
             transaction_details=""
         )
