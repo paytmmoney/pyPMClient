@@ -285,7 +285,7 @@ pm.get_gtt_by_instruction_id(id)
 * Note : transaction_details is a list of dictionary(key-value pair).
 * Refer below sample requestBody 
 ```python
-pm.create_gtt(segment, exchange, security_id, product_type, set_price, transaction_type, trigger_type, transaction_details)
+pm.create_gtt_v2(segment, exchange, security_id, product_type, set_price, transaction_type, trigger_type, transaction_details)
 ```
 ```python
 # Sample requestBody for OCO trigger_type
