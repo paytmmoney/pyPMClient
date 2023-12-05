@@ -1075,7 +1075,7 @@ def test_get_gtt_v2_connection(pm_api):
             id=4563,
         )
 
-def test_get_gtt_by_instruction_id_connection(pm_api):
+def test_get_gtt_by_instruction_id_v2_connection(pm_api):
     pm_api.access_token = "invalid_token"
     with pytest.raises(Exception):
         pm_api.get_gtt_by_instruction_id_v2(
