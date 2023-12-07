@@ -1054,7 +1054,7 @@ def test_update_gtt_v2_connection(pm_api):
 
 
 def test_update_gtt_v2_attribute(pm_api):
-    pm_api.access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiIwNTY2ZTRhMGIyNzI0Y2NlYTA2ZjMwYTdhMTlkMTk4NyIsIm1lcmNoYW50SWQiOiJNRVJfMjI2IiwicGFzc2NvZGVWYWxpZCI6dHJ1ZSwiYXV0aG9yaXNhdGlvbiI6IltcIlAxXCIsXCJQMlwiLFwiUDNcIixcIlA0XCJdIiwicGFzc2NvZGVWYWxpZFRpbGxFUE9DU2Vjb25kcyI6IjE2NTk5ODMzNDAwMDAiLCJzc29Ub2tlbiI6IlVmNndtYURTZDNrT3NNdlJQeFptOGlpNDFsbHhIMXFUNTlRK2hOeXVCcTMzN0FFSTFXTmlNUXQwcjlrWS9MMXMiLCJ1c2VySWQiOiI3OTQ1NjkiLCJpc3MiOiJwYXl0bW1vbmV5IiwiYXVkIjoibWVyY2hhbnQifQ.V_A8GjygTEWtArfF4ZM-04nyIe053rWTmcbmyDo0iYM"
+    pm_api.access_token = "access_token"
     with pytest.raises(Exception):
         pm_api.update_gtt_v2(
             id=987,
