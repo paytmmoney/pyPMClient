@@ -968,6 +968,115 @@ def test_get_gtt_by_instruction_id_connection(pm_api):
             id="4563",
         )
 
+def test_create_gtt_v2_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.create_gtt_v2(
+            segment="E",
+            exchange=9.0,
+            security_id="14366",
+            product_type="C",
+            set_price=12.80,
+            transaction_type="S",
+            trigger_type="SINGLE",
+            transaction_details=""
+        )
+
+
+def test_create_gtt_v2_attribute(pm_api):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
+        pm_api.create_gtt_v2(
+            segment="E",
+            exchange=9.0,
+            security_id="14366",
+            product_type="C",
+            set_price=12.80,
+            transaction_type="S",
+            trigger_type="SINGLE",
+            transaction_details=""
+        )
+
+def test_get_gtt_by_status_or_id_v2_connection1(pm_api, mocker):
+    response = "response"
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_gtt_by_pml_id_and_status_v2(
+        status="ACTIVE",
+        pml_id="1000001488"
+    )
+
+
+def test_get_gtt_by_status_or_id_v2_connection2(pm_api, mocker):
+    response = "response"
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_gtt_by_pml_id_and_status_v2(
+        status="ACTIVE",
+        pml_id=""
+    )
+
+
+def test_get_gtt_by_status_or_id_v2_connection3(pm_api, mocker):
+    response = "response"
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_gtt_by_pml_id_and_status_v2(
+        status="",
+        pml_id="123"
+    )
+
+
+def test_get_gtt_by_status_or_id_v2_connection4(pm_api, mocker):
+    response = "response"
+    mocker.patch("pmClient.apiService.ApiService.api_call_helper", return_value=response)
+    pm_api.get_gtt_by_pml_id_and_status_v2(
+        status="",
+        pml_id=""
+    )
+
+
+def test_get_gtt_by_status_or_id_v2_attribute(pm_api):
+    pm_api.access_token = "test_access_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_gtt_by_pml_id_and_status_v2(
+            status="ACTIE",
+            pml_id="1000001488"
+        )
+
+def test_update_gtt_v2_connection(pm_api):
+    pm_api.access_token = "Invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.update_gtt_v2(
+            id=987,
+            set_price=12.80,
+            transaction_type="S",
+            trigger_type="SINGLE",
+            transaction_details=""
+        )
+
+
+def test_update_gtt_v2_attribute(pm_api):
+    pm_api.access_token = "access_token"
+    with pytest.raises(Exception):
+        pm_api.update_gtt_v2(
+            id=987,
+            set_price=12.80,
+            transaction_type=5,
+            trigger_type="SINGLE",
+            transaction_details=""
+        )
+
+def test_get_gtt_v2_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(ConnectionError):
+        pm_api.get_gtt_v2(
+            id=4563,
+        )
+
+def test_get_gtt_by_instruction_id_v2_connection(pm_api):
+    pm_api.access_token = "invalid_token"
+    with pytest.raises(Exception):
+        pm_api.get_gtt_by_instruction_id_v2(
+            id="4563",
+        )
 
 def test_live_market_data(pm_api, mocker):
     response = {
