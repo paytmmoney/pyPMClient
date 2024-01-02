@@ -31,7 +31,7 @@ pip3 install -r requirements.txt
 ### API Usage
 
 ```python
-from pyPMClient import PMClient
+from pmClient import PMClient
 ```
 
 
