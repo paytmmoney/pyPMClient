@@ -298,7 +298,7 @@ class WebSocketClient(Constants):
             "mode": byte_buffer[position + 13],
             "last_traded_quantity": self.unpack(byte_buffer, position + 14, position + 18),
             "average_traded_price": round(self.unpack(byte_buffer, position + 18, position + 22, "f"), 2),
-            "volume_traded": self.unpack(byte_buffer, position + 22, position + 26),
+            "volume_traded": self.unpack(byte_buffer, position + 22, position + 26, "q"),
             "total_buy_quantity": self.unpack(byte_buffer, position + 26, position + 30),
             "total_sell_quantity": self.unpack(byte_buffer, position + 30, position + 34),
             "open": round(self.unpack(byte_buffer, position + 34, position + 38, "f"), 2),
@@ -374,7 +374,7 @@ class WebSocketClient(Constants):
         tick["mode"] = byte_buffer[position + 13]
         tick["last_traded_quantity"] = self.unpack(byte_buffer, position + 14, position + 18)
         tick["average_traded_price"] = round(self.unpack(byte_buffer, position + 18, position + 22, "f"), 2)
-        tick["volume_traded"] = self.unpack(byte_buffer, position + 22, position + 26)
+        tick["volume_traded"] = self.unpack(byte_buffer, position + 22, position + 26, "q")
         tick["total_buy_quantity"] = self.unpack(byte_buffer, position + 26, position + 30)
         tick["total_sell_quantity"] = self.unpack(byte_buffer, position + 30, position + 34)
         tick["open"] = round(self.unpack(byte_buffer, position + 34, position + 38, "f"), 2)
@@ -385,8 +385,8 @@ class WebSocketClient(Constants):
         tick["change_absolute"] = round(self.unpack(byte_buffer, position + 54, position + 58, "f"), 2)
         tick["fifty_two_week_high"] = round(self.unpack(byte_buffer, position + 58, position + 62, "f"), 2)
         tick["fifty_two_week_low"] = round(self.unpack(byte_buffer, position + 62, position + 66, "f"), 2)
-        tick["OI"] = self.unpack(byte_buffer, position + 66, position + 70)
-        tick["OI_change"] = self.unpack(byte_buffer, position + 70, position + 74)
+        tick["OI"] = self.unpack(byte_buffer, position + 66, position + 70, "q")
+        tick["OI_change"] = self.unpack(byte_buffer, position + 70, position + 74, "q")
 
         response.append(tick)
 
