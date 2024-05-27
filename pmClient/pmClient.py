@@ -533,7 +533,7 @@ class PMClient(ApiService, Constants):
         """
         params = {
             'mode_type': mode_type,
-            'preferences': ','.join(preferences)
+            'preferences': preferences
         }
         response = ApiService.api_call_helper(self, 'live_market_data', Requests.GET, params, None)
 
