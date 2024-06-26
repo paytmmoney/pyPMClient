@@ -1,5 +1,6 @@
 import json
 from pdb import pm
+from typing import List
 from .apiService import ApiService
 from .constants import Constants
 from .enums import OrderType, Requests, ProductType
@@ -525,15 +526,15 @@ class PMClient(ApiService, Constants):
         }
         return ApiService.api_call_helper(self, 'gtt_by_instruction_id_v2', Requests.GET, params, None)
 
-    def get_live_market_data(self, mode_type, preferences):
+    def get_live_market_data(self, mode_type, preferences: List[str]):
         """
         Live Market data 
         mode_type: mode of preference
-        prefrences: exchange:scrip_id:scrip_type
+        prefrences: list of pref, example format -> preferences=["exchange:scrip_id:scrip_type"]
         """
         params = {
             'mode_type': mode_type,
-            'preferences': preferences
+            'preferences': ",".join(preferences)
         }
         response = ApiService.api_call_helper(self, 'live_market_data', Requests.GET, params, None)
 
