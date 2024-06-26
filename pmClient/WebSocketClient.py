@@ -208,6 +208,11 @@ class WebSocketClient(Constants):
     def unpack(self, binary, start, end, byte_format="I"):
         """Unpack binary data as given data type format."""
         return struct.unpack("<" + byte_format, binary[start:end])[0]
+    
+    def safe_unpack(self, binary, start, end, byte_format):
+        if end - start < struct.calcsize("<" + byte_format):
+            return struct.unpack("<" + "i", binary[start:end])[0]
+        return struct.unpack("<" + byte_format, binary[start:end])[0]
 
     def parse_binary(self, buffer_packet):
         """
@@ -386,7 +391,7 @@ class WebSocketClient(Constants):
         tick["fifty_two_week_high"] = round(self.unpack(byte_buffer, position + 58, position + 62, "f"), 2)
         tick["fifty_two_week_low"] = round(self.unpack(byte_buffer, position + 62, position + 66, "f"), 2)
         tick["OI"] = self.unpack(byte_buffer, position + 66, position + 70)
-        tick["OI_change"] = self.unpack(byte_buffer, position + 70, position + 74)
+        tick["OI_change"] = self.safe_unpack(byte_buffer, position + 70, position + 74, "q")
 
         response.append(tick)
 
