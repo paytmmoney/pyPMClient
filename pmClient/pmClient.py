@@ -530,7 +530,7 @@ class PMClient(ApiService, Constants):
         """
         Live Market data 
         mode_type: mode of preference
-        prefrences: list of pref, example format -> preferences=["exchange:scrip_id:scrip_type"]
+        prefrences: list of pref, example format -> preferences=["exchange:scrip_id:scrip_type","exchange:scrip_id:scrip_type"]
         """
         params = {
             'mode_type': mode_type,
